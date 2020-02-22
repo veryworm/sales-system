@@ -5,16 +5,22 @@
 			<view class="card_header">
 				<view class="xiahua">
 					  <h4 class="h41"></h4>
-					  <h4 class="h4">水果商城</h4>
+					  <h4 class="h4">我的关注</h4>
+					  <h4 style="float: right; font-size: 12px; font-weight:400;">
+						  发现更多频道
+						  <h4 style="width: 1.1em; height: 1.1em; vertical-align: middle; margin-left: 10px; background-color: #ef2b2c;  border-radius: 50%;">
+							  <img style="float: right;" src="../../static/right.png" alt="">
+						  </h4>
+					  </h4>
 				</view>
 			</view>
 			<view class="card_content">
 				<ul class="card_logo">
-					<li @click="con" v-for="item in categoryData" :key="item.id">
+					<li>
 						<view class="img">
-							<img :src="item.photo" alt="">
+							<img src="" alt="">
 						</view>
-						<view>{{item.name}}</view>
+						<view>佳佳生鲜</view>
 					</li>
 				</ul>
 			</view> 
@@ -30,26 +36,13 @@
 			}
 		},
 		props:{
-			categoryData:{
-				type: Array,
-				default (){
-					return ['加载中..']
-				}
-			}
+			
 		},
 		watch:{
-			categoryData(){
-				
-			}
+			
 		},
 		methods:{
-			con(){
-				
-			},
-			scroll: function(e) {
-				console.log(e)
-				this.old.scrollTop = e.detail.scrollTop
-			},
+			
 		}
 	}
 </script>
@@ -113,8 +106,8 @@
 		margin: 0 auto;
 		margin-top: 10%;
 		text-align: center;
-		width:86rpx;
-		height: 30rpx;
+		width:100rpx;
+		height: 50rpx;
 		border-radius: 50%;
 		position: relative;
 	} 

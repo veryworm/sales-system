@@ -36,7 +36,13 @@
 		</view>
 		<view style="padding: 120px 0 10px 0" class="category_rows2">
 			<view v-if="current == '0'">
-				<myCard></myCard>
+				<myCard :categoryData="categoryData"></myCard>
+				<view style="margin-top: 10px;">
+					<myAttention></myAttention>
+				</view>
+				<view style="margin-top: 10px;">
+					<myGoods :products="products"></myGoods>
+				</view>
 			</view>
 			<view v-if="current == '1'">
 				<!-- 家庭养护:{{categoryData}} -->
@@ -51,15 +57,19 @@
 <script>
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	import myCard from '@/components/my-card/my-card.vue'
+	import myAttention from '@/components/my-attention/my-attention.vue'
+	import myGoods from '@/components/my-GoodsTotal/my-GoodsTotal.vue'
 	import uniIcons from "@/components/uni-icons/uni-icons.vue"
 	import uniSegmentedControl from "@/components/uni-segmented-control/uni-segmented-control.vue"
-	import {Categoryapi} from "@/utiles/apiController.js"
+	import {Categoryapi,Productapi} from "@/utiles/apiController.js"
 	export default {
 		components: {
 			uniNavBar,
 			uniIcons,
 			uniSegmentedControl,
-			myCard
+			myCard,
+			myAttention,
+			myGoods
 		},
 		data() {
 			return {
@@ -80,7 +90,8 @@
 				],
 				current:0,
 				categories:[],
-				categoryData:[]
+				categoryData:[],
+				products:[]
 			}  
 		},
 		watch:{
@@ -88,9 +99,27 @@
 		},
 		onLoad() {
 			this.searchCategory()
+			this.searchProducts()
 		}, 
 		methods: {
+			// 加载分类
 			searchCategory(){
+				uni.request({
+				    url: Productapi.ProductFindAll.api, 
+					method: Productapi.ProductFindAll.methods,
+				    header: {
+				        'Accept': 'application/json'
+				    },
+				    success: (res) => {
+				        this.products = res.data.data
+				    },
+					fail: (res) =>{
+						
+					}
+				})
+			},
+			// 加载所有商品
+			searchProducts(){
 				uni.request({
 				    url: Categoryapi.CategoryFindAll.api, 
 					method: Categoryapi.CategoryFindAll.methods,
@@ -108,6 +137,7 @@
 					}
 				})
 			},
+			// 根据分类ID去查找商品
 			categoryFindByCategoryId(CategoryId){
 				uni.request({
 					url:Categoryapi.CategoryFindByCategoryId.api, 
@@ -118,6 +148,7 @@
 					},
 					success: (res) => {
 					    this.categoryData= res.data.data
+						console.log(this.categoryData,'data')
 					},
 					fail:(res)=>{
 						
@@ -150,7 +181,7 @@
 		box-sizing: border-box;
 	}
 	.search_input{
-		padding: .3em 2em .3em 2.2em;
+		padding: .3em 4em .3em 2.2em;
 		border-radius: 30px;
 		background-color: #FFFFFF;
 		font-size: 13px;
