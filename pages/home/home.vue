@@ -20,27 +20,31 @@
 			>
 			</uni-segmented-control>
 		</view>
-		<!-- 轮播图 -->
-		<view class="uni-padding-wrap">
-			<view  class="page-section swiper">
-				<view class="page-section-spacing">
-					<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-						<swiper-item v-for="item in swiperContent" :key="item.id">
-							<view class="swiper-item">
-								<img style="width: 100%; height: 100%; border-radius: 10px;" :src="item.imgsrc" alt="">
-							</view>
-						</swiper-item>
-					</swiper>
-				</view>
-			</view>
-		</view>
-		<view style="padding: 120px 0 10px 0" class="category_rows2">
+		<view style="padding: 120px 0 10px 0">
+			<!-- 轮播图 -->
 			<view v-if="current == '0'">
-				<myCard :categoryData="categoryData"></myCard>
+				<view class="uni-padding-wrap">
+					<view  class="page-section swiper">
+						<view class="page-section-spacing">
+							<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+								<swiper-item v-for="item in FilterProductImg" :key="item.id">
+									<view class="swiper-item">
+										<img style="width: 100%; height: 100%; border-radius: 10px;" :src="item.photo" alt="">
+									</view>
+								</swiper-item>
+							</swiper>
+						</view>
+					</view>
+				</view>
+				<myCard :categoryData="categoryData">
+					<!-- 分类卡片 -->
+				</myCard>
 				<view style="margin-top: 10px;">
+					<!-- 我的关注 -->
 					<myAttention></myAttention>
 				</view>
 				<view style="margin-top: 10px;">
+					<!-- 所有产品 -->
 					<myGoods :products="products"></myGoods>
 				</view>
 			</view>
@@ -96,6 +100,11 @@
 		},
 		watch:{
 			
+		},
+		computed:{
+			FilterProductImg(){
+				return this.products.filter(item=>item.photo !== null)
+			}
 		},
 		onLoad() {
 			this.searchCategory()
@@ -172,13 +181,6 @@
 	}
 	.uni-nav-bar-text {
 	    font-size: 10px;
-	}
-	/* 头部搜索 */
-	.search_content{
-		padding: 0 0 7em .5em ;
-		width: 100%;
-		background-color: #000000;
-		box-sizing: border-box;
 	}
 	.search_input{
 		padding: .3em 4em .3em 2.2em;

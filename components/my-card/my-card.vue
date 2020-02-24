@@ -10,11 +10,17 @@
 			</view>
 			<view class="card_content">
 				<ul class="card_logo">
-					<li @click="con" v-for="item in categoryData" :key="item.id">
+					<li @click="skipGoodsAllHandler(item,index)" v-for="(item,index) in categoryData" :key="item.id">
 						<view class="img">
 							<img :src="item.photo" alt="">
 						</view>
 						<view>{{item.name}}</view>
+					</li>
+					<li @click="con1">
+						<view style="background-color: #00e097;" class="img">
+							<img style="width: 20px; height: 20px; padding:10px 0 0 10px; border-radius: unset;" src="../../static/all_fruit.png" alt="">
+						</view>
+						<view>全部水果</view>
 					</li>
 				</ul>
 			</view> 
@@ -43,7 +49,19 @@
 			}
 		},
 		methods:{
-			con(){
+			skipGoodsAllHandler(item,index){
+				// uni.showLoading({
+				//     title: '加载中'
+				// });
+				uni.navigateTo({
+				    url: '../../pages/good_all_function/good_all_function?item='+ JSON.stringify(item)
+				})
+				// setTimeout(function () {
+				// 	uni.navigateTo({
+				// 	    url: '../../pages/good_all_function/good_all_function?item='+ JSON.stringify(item)
+				// 	})
+				//     uni.hideLoading();
+				// }, 2000);
 				
 			},
 			scroll: function(e) {
@@ -122,9 +140,10 @@
 		position: absolute; 
 		left: 50%; 
 		top: 50%; 
-		margin-top: -10px; 
-		margin-left:-10px ;
-		width: 20px;
-		height: 20px;
+		margin-top: -20px; 
+		margin-left:-20px;
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
 	}
 </style>

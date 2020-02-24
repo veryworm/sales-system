@@ -10,7 +10,7 @@
 			<view class="card_content">
 				<ul class="card_logo">
 					<li v-for="item in products" :key="item.id">
-						<img :src="item.photo" alt="">
+						<img style="width: 100%; height: 100%;" :src="item.photo" alt="">
 						<view class="desc">
 							{{item.description}}
 						</view>
@@ -78,17 +78,17 @@
 		color: #0a1019;
 		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 		font-weight: 500;
-		display: flex;
-		flex-wrap: wrap;
 		width: 100%;
 	}
 	.card_logo>li{
 		float: left;
 		width: 46%;
-		border: 5px solid #FFFFFF;
+		background-color: #FFFFFF;
+		border: 5px solid #f6f6f6 ;
 	}
 	.desc{
-		font-size: 14px;
+		padding-top: 5px;
+		font-size: 14px
 	}
 	.price{
 		color: #e82d24;

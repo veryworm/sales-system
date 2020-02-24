@@ -1,25 +1,40 @@
 <template>
-	<view :class="[styleType === 'text'?'segmented-control--text' : 'segmented-control--button' ]" :style="{ borderColor: styleType === 'text' ? '' : activeColor }"
-	 class="segmented-control">
-		<view v-for="(item, index) in values" :class="[ styleType === 'text'?'segmented-control__item--text': 'segmented-control__item--button' , index === currentIndex&&styleType === 'button'?'segmented-control__item--button--active': '' , index === 0&&styleType === 'button'?'segmented-control__item--button--first': '',index === values.length - 1&&styleType === 'button'?'segmented-control__item--button--last': '' ]"
-		 :key="index" :style="{
+	<view :class="[styleType === 'text'?'segmented-control--text' : 'segmented-control--button' ]" :style="{ borderColor: styleType === 'text' ? '' : activeColor }" class="segmented-control">
+		<view v-for="(item, index) in values" :class="[ styleType === 'text'?'segmented-control__item--text': 'segmented-control__item--button' , index === currentIndex&&styleType === 'button'?'segmented-control__item--button--active': '' , index === 0&&styleType === 'button'?'segmented-control__item--button--first': '',index === values.length - 1&&styleType === 'button'?'segmented-control__item--button--last': '' ]" :key="index" :style="{
         backgroundColor: index === currentIndex && styleType === 'button' ? activeColor : '',borderColor: index === currentIndex&&styleType === 'text'||styleType === 'button'?activeColor:'transparent'
-      }"
-		 class="segmented-control__item" @click="_onClick(item,index)">
+      }" class="segmented-control__item" @click="_onClick(index)">
 			<text :style="{color:
           index === currentIndex
             ? styleType === 'text'
               ? activeColor
               : '#fff'
             : styleType === 'text'
-              ? '#ffffff'
-              : activeColor}"
-			 :class="[index === currentIndex? 'segmented-control__text1':'segmented-control__text']">{{ item.name }}</text>
+              ? '#000'
+              : activeColor}" class="segmented-control__text">{{ item }}</text>
+			  <view style="margin-left: 3px;" v-if="item == '价格'">
+				  <img src="../../static/top_bottom.png" alt="">
+			  </view>
+			  <view style="margin-left: 3px;" v-if="item == '筛选'">
+				  <img src="../../static/shaixuan.png" alt="">
+			  </view>
 		</view>
 	</view>
 </template>
 
 <script>
+	/**
+	 * SegmentedControl 分段器
+	 * @description 用作不同视图的显示
+	 * @tutorial https://ext.dcloud.net.cn/plugin?id=54
+	 * @property {Number} current 当前选中的tab索引值，从0计数
+	 * @property {String} styleType = [button|text] 分段器样式类型
+	 * 	@value button 按钮类型
+	 * 	@value text 文字类型
+	 * @property {String} activeColor 选中的标签背景色与边框颜色
+	 * @property {Array} values 选项数组
+	 * @event {Function} clickItem 组件触发点击事件时触发，e={currentIndex}
+	 */
+
 	export default {
 		name: 'UniSegmentedControl',
 		props: {
@@ -58,19 +73,19 @@
 			this.currentIndex = this.current
 		},
 		methods: {
-			_onClick(item,index) {
+			_onClick(index) {
 				if (this.currentIndex !== index) {
 					this.currentIndex = index
-					this.$emit('clickItem', {item1:item,currentIndex:index})
+					this.$emit('clickItem', {
+						currentIndex: index
+					})
 				}
 			}
 		}
 	}
 </script>
 
-<style lang="scss" scoped>
-	@import '@/uni.scss';
-
+<style scoped>
 	.segmented-control {
 		/* #ifndef APP-NVUE */
 		display: flex;
@@ -114,15 +129,12 @@
 	.segmented-control__item--text {
 		border-bottom-style: solid;
 		border-bottom-width: 3px;
+		background-color: #FFFFFF;
 	}
 
 	.segmented-control__text {
-		font-size: 13px;
+		font-size: 14px;
 		line-height: 20px;
 		text-align: center;
-	}
-	.segmented-control__text1 {
-		font-size: 15px;
-		color: blue;
 	}
 </style>

@@ -86,6 +86,12 @@
 				}
 			}
 		}
+        ,{
+            "path" : "pages/good_all_function/good_all_function",
+            "style" : {
+				"navigationStyle":"custom"
+			}
+        }
     ],
 	"tabBar": {
 	    "color": "#7A7E83",
