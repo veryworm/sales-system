@@ -20,7 +20,7 @@
 						<view style="background-color: #00e097;" class="img">
 							<img style="width: 20px; height: 20px; padding:10px 0 0 10px; border-radius: unset;" src="../../static/all_fruit.png" alt="">
 						</view>
-						<view>全部水果</view>
+						<view>test2</view>
 					</li>
 				</ul>
 			</view> 
@@ -29,10 +29,11 @@
 </template>
 
 <script>
+	import { mapState, mapActions } from 'vuex'
 	export default {
 		data() {
 			return {
-				
+				test:{}
 			}
 		},
 		props:{
@@ -43,10 +44,11 @@
 				}
 			}
 		},
+		computed:{
+			
+		},
 		watch:{
-			categoryData(){
-				
-			}
+			
 		},
 		methods:{
 			skipGoodsAllHandler(item,index){
@@ -62,7 +64,6 @@
 				// 	})
 				//     uni.hideLoading();
 				// }, 2000);
-				
 			},
 			scroll: function(e) {
 				console.log(e)

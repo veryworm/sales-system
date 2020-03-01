@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="header">
-			<uniNavBar @clickLeft="clickLeft" left-icon="back" right-icon="reload" fixed="true" background-color="#ffffff" status-bar="true">
+			<uniNavBar @clickLeft="clickLeft" left-icon="back" right-icon="bars" @clickRight="clickright" fixed="true" background-color="#ffffff" status-bar="true">
 				<view slot="default">
 					<img class="header_search" src="../../static/search.png" alt="">
 					<input class="search_input" type="text" placeholder="请输入搜索内容"></li>
@@ -11,44 +11,53 @@
 		  <uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="text" active-color="#d96b4f"></uni-segmented-control>
 		<view class="content">
 			<view v-show="current === 0">
-				选项卡1的内容
+				<mygoodsswip></mygoodsswip>
 			</view>
 			<view v-show="current === 1">
 				选项卡2的内容
 			</view>
-			<view v-show="current === 2">
-				选项卡3的内容
-			</view>
 		</view>
+		
 	</view>
 </template>
 
 <script>
 	import uniNavBar from "@/components/uni-nav-bar1/uni-nav-bar.vue"
 	import uniSegmentedControl from "@/components/uni-segmented-control2/uni-segmented-control.vue"
+	import mygoodsswip from "@/components/my-goodsswip/mygoodsswip.vue"
 	export default {
 		components:{
 			uniNavBar,
-			uniSegmentedControl
+			uniSegmentedControl,
+			mygoodsswip
 		},
 		data() {
 			return {
 				newoption1:{},
 				items: ['销量','价格','筛选'],
 				current: 0,
-				uniqueval:'goods'
+				uniqueval:'goods',
 			};
+		},
+		watch:{
 		},
 		methods:{
 			onClickItem(index) {
 				if (this.current !== index.currentIndex) {
 					this.current = index.currentIndex;
 				}
+				if(this.current == 2){
+					this.current = 0
+				}
 			},
 			clickLeft(){
 				uni.switchTab({
 					url:'../home/home'
 				})
+			},
+			
+			clickright(){
+				
 			}
 		},
 		onLoad(option) {

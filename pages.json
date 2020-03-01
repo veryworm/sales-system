@@ -92,6 +92,10 @@
 				"navigationStyle":"custom"
 			}
         }
+        ,{
+            "path" : "components/my-goodsswip/mygoodsswip",
+            "style" : {}
+        }
     ],
 	"tabBar": {
 	    "color": "#7A7E83",

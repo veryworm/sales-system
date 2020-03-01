@@ -157,7 +157,7 @@
 					},
 					success: (res) => {
 					    this.categoryData= res.data.data
-						console.log(this.categoryData,'data')
+						// console.log(this.categoryData,'data')
 					},
 					fail:(res)=>{
 						
