@@ -1,10 +1,10 @@
 <template>
 	<view class="content">
 		<!-- {{products}} -->
-		<view class="body_content">
+		<!-- <view class="body_content">
 			<view class="card_content">
-				
-				<ul v-for="item in productFilter2" :key="item.id"  class="card_logo">
+				{{searchOn}}
+				<ul v-for="item in gridList" :key="item.id"  class="card_logo">
 					<li>
 						<img style="width: 100%;height: 100%;border-radius: 10px;" :src="item.photo" alt="">
 					</li>
@@ -22,7 +22,7 @@
 					</li>
 				</ul>
 			</view> 
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -31,52 +31,40 @@
 	import { mapState, mapActions, mapGetters } from 'vuex'
 	import { mixStatus } from '../../store/modules/mix.js'
 	export default {
-		mixins:[mixStatus],
+		// mixins:[mixStatus],
 		data() {
 			return {
-				
+				mainData:[]
 			};
 		},
-		props:{
-			// onedata:{}
-		},
+		// props:['searchOn'],
 		watch:{
-			// onedata:{
+			// searchOn:{
 			// 	immediate:true,
-			// 	handler(){
-					
+			// 	handler(val){
+			// 		this.searchBody()
 			// 	}
 			// }
 		},
-		created() {
-			
-		},
 		mounted() {
 			// this.searchProducts()
-			
+			// this.search()
 		},
 		computed:{
-			productFilter1(){
-				return this.onedata
-			}
 			// ...mapGetters('product',['productFilter'])
 		},
 		methods:{
 			// ...mapActions('product',['searchProducts']),
-			// 监听
-			// confinedata(){
+			// searchBody(){
 			// 	if(this.searchOn){
-			// 		this.productFilter2 = this.$store.getters.productFilter3()
-			// 		console.log(this.productFilter,'if')
-			// 		return true
+			// 		console.log(this.$store.getters.productFilter3(),'333')
+			// 		return this.$store.getters.productFilter3()
 			// 	}else{
-			// 		console.log(this.searchOn,'on')
-			// 		this.productFilter2 = this.productFilter
-			// 		return false
-			// 		console.log(this.productFilter,'else')
+			// 		return this.productFilter
 			// 	}
 			// }
-		}
+		},
+		
 	}
 </script>
 

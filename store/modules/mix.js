@@ -2,49 +2,41 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 export const mixStatus = {
 	data(){
 		return {
-			searchOn:false,
-			productFilter2:[]
+			gridData:[]
 		}
 	},
 	computed:{
 		...mapGetters('product',['productFilter']),
-		newproduct(){
-			if(this.searchOn){
-				console.log(this.searchOn)
-				return this.$store.getters.productFilter3()
-			}else{
-				console.log('112')
-				return this.productFilter2
-				
+		gridList(){
+			if(this.gridData){
+				return this.gridData
 			}
 		}
 	},
 	watch:{
-		searchOn:{
-			immediate:true,
-			handler(val){
-				if(val){
-					this.confinedata()
-					console.log(val,'if1')
-				}else{
-					this.confinedata()
-					console.log(val,'else2')
-				}
-			}
-		}
+		// gridData:{
+		// 	immediate:true,
+		// 	handler(val){
+		// 		if(val){
+		// 			this.search()
+		// 		}else{
+		// 			this.search()
+		// 		}
+		// 	}
+		// }
 	},
 	created(){
 		this.searchProducts()
 	},
 	methods:{
 		...mapActions('product',['searchProducts']),
-		confinedata(){
-			if(this.searchOn){
-				this.productFilter2 = this.$store.getters.productFilter3()
-				console.log(this.productFilter2,'confinedata11')
+		search(){
+			let resp =  this.searchBody.call(this)
+			console.log(resp,'resp')
+			if(resp){
+				return (this.gridData = resp)
 			}else{
-				this.productFilter2 = this.productFilter
-				console.log(this.productFilter2,'confinedata22')
+				return null
 			}
 		}
 	}

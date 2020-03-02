@@ -1,67 +1,81 @@
 <template>
-	<view :class="[styleType === 'text'?'segmented-control--text' : 'segmented-control--button' ]" :style="{ borderColor: styleType === 'text' ? '' : activeColor }" class="segmented-control">
-		<view v-for="(item, index) in values" :class="[ styleType === 'text'?'segmented-control__item--text': 'segmented-control__item--button' , index === currentIndex&&styleType === 'button'?'segmented-control__item--button--active': '' , index === 0&&styleType === 'button'?'segmented-control__item--button--first': '',index === values.length - 1&&styleType === 'button'?'segmented-control__item--button--last': '' ]" :key="index" :style="{
-        backgroundColor: index === currentIndex && styleType === 'button' ? activeColor : '',borderColor: index === currentIndex&&styleType === 'text'||styleType === 'button'?activeColor:'transparent'
-      }" class="segmented-control__item" @click="_onClick(index)">
-			<text :style="{color:
-          index === currentIndex
-            ? styleType === 'text'
-              ? activeColor
-              : '#fff'
-            : styleType === 'text'
-              ? '#000'
-              : activeColor}" class="segmented-control__text">{{ item }} <text @click="kii" v-if="item=='筛选'"><img src="../../static/shaixuan.png" alt=""></text></text>
-			  <!-- <view style="margin-left: 3px;" v-if="item == '价格'">
-				  <img src="../../static/top_bottom.png" alt="">
-			  </view>
-			  <view @click="kii" style="margin-left: 3px;" v-if="item == '筛选'">
-				  <img src="../../static/shaixuan.png" alt="">
-			  </view> -->
+	<view>
+		<view :class="[styleType === 'text'?'segmented-control--text' : 'segmented-control--button' ]" :style="{ borderColor: styleType === 'text' ? '' : activeColor }" class="segmented-control">
+			<view v-for="(item, index) in values" :class="[ styleType === 'text'?'segmented-control__item--text': 'segmented-control__item--button' , index === currentIndex&&styleType === 'button'?'segmented-control__item--button--active': '' , index === 0&&styleType === 'button'?'segmented-control__item--button--first': '',index === values.length - 1&&styleType === 'button'?'segmented-control__item--button--last': '' ]" :key="index" :style="{
+		    backgroundColor: index === currentIndex && styleType === 'button' ? activeColor : '',borderColor: index === currentIndex&&styleType === 'text'||styleType === 'button'?activeColor:'transparent'
+		  }" class="segmented-control__item" @click="_onClick(index)">
+				<text :style="{color:
+		      index === currentIndex
+		        ? styleType === 'text'
+		          ? activeColor
+		          : '#fff'
+		        : styleType === 'text'
+		          ? '#000'
+		          : activeColor}" class="segmented-control__text">{{ item }} <text @click="kii" v-if="item=='筛选'"><img src="../../static/shaixuan.png" alt=""></text></text>
+			</view>
+			<!-- 模态框 -->
+			<uni-drawer mode="right" :visible="visible" @close="closeDrawer">
+			    <view style="padding:30rpx; background-color: #FFFFFF;border-radius: 10px">
+			        <view style="font-weight: bold" class="uni-title">
+						<uni-icons type="location" size="25"></uni-icons>
+						<text style="font-size: 14px;">地址</text>
+						<text style="font-size: 14px; vertical-align: sub; color: red;">修改</text>
+					</view>
+					<!-- drawer 产品name -->
+					<ul class="ull">
+						<li @click="productChoice(item,index)" v-for="(item,index) in productFilter" :key="item.id" :class="['drawer_brand',index == currentIndex2 ? 'drawer_brand_style': '']">
+							{{item.name}}
+						</li>
+					</ul>
+					<!-- drawer 产品价格 -->
+					<view style="margin-top: 10px; font-weight: bold;" class="uni-title">
+						<text style="font-size: 14px;">价格区间</text>
+					</view>
+					<view class="pricestyle">
+						<form :model="formDrawer" ref="formDrawer2">
+							<view style="float: left;" class="uni-form-item uni-column">
+								<input class="uni-input" v-model="formDrawer.lowestprice" name="lowestprice" placeholder="最低价" />
+							</view>
+							<view style="float: left;">
+								<text>-</text>
+							</view>
+							<view class="uni-form-item uni-column">
+								<input class="uni-input"  v-model="formDrawer.highsetprice" name="highsetprice" placeholder="最高价" />
+							</view>
+							<view style=" position: absolute; bottom: 0; left: 7%; " class="uni-btn-v">
+								<button class="beautbutton2" @click="formReset">重置</button>
+								<button class="beautbutton1" @click="submitData(formDrawer)">确定({{'一共'+filterprimaryproduct.length + '件商品'}})</button>
+							</view>
+						</form>
+					</view>
+			    </view>
+			</uni-drawer>
 		</view>
-		<uni-drawer mode="right" :visible="visible" @close="closeDrawer">
-		    <view style="padding:30rpx; background-color: #FFFFFF;border-radius: 10px">
-		        <view style="font-weight: bold" class="uni-title">
-					<uni-icons type="location" size="25"></uni-icons>
-					<text style="font-size: 14px;">地址</text>
-					<text style="font-size: 14px; vertical-align: sub; color: red;">修改</text>
-				</view>
-				<!-- drawer 产品name -->
-				<ul class="ull">
-					<li @click="productChoice(item,index)" v-for="(item,index) in productFilter" :key="item.id" :class="['drawer_brand',index == currentIndex2 ? 'drawer_brand_style': '']">
-						{{item.name}}
+		<!-- goodsswip -->
+		<view class="body_content">
+			<view class="card_content">
+				<ul v-for="item in gridList" :key="item.id"  class="card_logo">
+					<li>
+						<img style="width: 100%;height: 100%;border-radius: 10px;" :src="item.photo" alt="">
+					</li>
+					<li>
+						<text>{{item.description}}</text>
+					</li>
+					<li>
+						<text>￥{{item.price}}</text>
+					</li>
+					<li>
+						<text>评价</text>
+					</li>
+					<li>
+						<text>{{item.name}}</text>
 					</li>
 				</ul>
-				<!-- drawer 产品价格 -->
-				<view style="margin-top: 10px; font-weight: bold;" class="uni-title">
-					<text style="font-size: 14px;">价格区间</text>
-				</view>
-				<view class="pricestyle">
-					<form :model="formDrawer" ref="formDrawer2">
-						<view style="float: left;" class="uni-form-item uni-column">
-							<input class="uni-input" v-model="formDrawer.lowestprice" name="lowestprice" placeholder="最低价" />
-						</view>
-						<view style="float: left;">
-							<text>-</text>
-						</view>
-						<view class="uni-form-item uni-column">
-							<input class="uni-input"  v-model="formDrawer.highsetprice" name="highsetprice" placeholder="最高价" />
-						</view>
-						<view style=" position: absolute; bottom: 0; left: 7%; " class="uni-btn-v">
-							<button class="beautbutton2" @click="formReset">重置</button>
-							<button class="beautbutton1" @click="submitData(formDrawer)">确定({{'一共'+filterprimaryproduct.length + '件商品'}})</button>
-						</view>
-					</form>
-				</view>
-		    </view>
-			<!-- <view style="margin-top: 10px; background-color: #FFFFFF; border-radius: 10px;" class="uni-title">
-				<text style="font-size: 14px;">地址</text>
-				<view class="drawer_brand">
-					21
-				</view>
-			</view> -->
-		</uni-drawer>
-		<mygoodsswip v-if="show1" :onedata="onedata1"></mygoodsswip>
+			</view> 
+		</view>
+		<!--  -->
 	</view>
+	
 </template>
 
 
@@ -107,13 +121,19 @@
 					highsetprice:''
 				},
 				filterprimaryproduct:[],
-				onedata1:[]
+				searchOn:false
 			}
 		},
 		watch: {
 			current(val) {
 				if (val !== this.currentIndex) {
 					this.currentIndex = val
+				}
+			},
+			searchOn:{
+				immediate:true,
+				handler(val){
+					this.searchBody()
 				}
 			}
 		},
@@ -122,15 +142,21 @@
 		},
 		created() {
 			this.currentIndex = this.current
-			this.$store.dispatch('searchProducts')
 		},
 		mounted() {
 			this.searchProducts()
-			this.onedata1 = this.productFilter
-			console.log(this.onedata1,'lokloi')
+			this.search()
+			this.$store.dispatch('searchProducts')
 		},
 		methods: {
 			...mapActions('product',['searchProducts']),
+			searchBody(){
+				if(this.searchOn){
+					return this.filterprimaryproduct
+				}else{
+					return this.productFilter
+				}
+			},
 			_onClick(index) {
 				if (this.currentIndex !== index) {
 					this.currentIndex = index
@@ -141,7 +167,6 @@
 			},
 			// 选择产品name
 			productChoice(item,index){
-				console.log(this.onedata,'on1121221')
 				this.currentIndex2 = index
 				this.formDrawer.name = item.name
 				if(this.formDrawer.name!== ''){
@@ -149,7 +174,6 @@
 						this.formDrawer.name
 					)
 					this.filterprimaryproduct = resp1
-					console.log(this.filterprimaryproduct,'55')
 				}
 			},
 			// 弹出模态框
@@ -170,8 +194,7 @@
 						e.highsetprice
 					)
 					this.filterprimaryproduct = resp
-					this.onedata1 = resp
-					console.log(this.filterprimaryproduct,'0')
+					// console.log(this.filterprimaryproduct,'0')
 					
 				}else if(e.name!== '' && e.lowestprice !== ''){
 					let resp1 = this.$store.getters.productFilter3(
@@ -179,22 +202,22 @@
 						e.lowestprice
 					)
 					this.filterprimaryproduct = resp1
-					this.onedata1 = resp1
-					console.log(this.filterprimaryproduct,'1')
+					// console.log(this.filterprimaryproduct,'1')
 				}else if(e.name!== ''){
 					let resp1 = this.$store.getters.productFilter3(
 						e.name
 					)
 					this.filterprimaryproduct = resp1
-					this.onedata1 = resp1
-					console.log(this.filterprimaryproduct,'2')
+					// console.log(this.filterprimaryproduct,'2')
 				}
-				
+				this.search()
 			},
 			// 清空表单
 			formReset(e){
 				e.detail.value = ''
 				this.currentIndex2 = null
+				this.searchOn = false
+				this.search()
 			}
 			
 		}
@@ -303,5 +326,76 @@
 		background-color: #FFFFFF;
 		float: left;
 		border: 1px solid #8c8c8c;
+	}
+	.body_content{
+		margin-top: 15px;
+		margin-left: 4%;
+		height: 100%;
+		width: 92%;
+		background-color: #FFFFFF;
+		border-radius: 10px;
+		margin-bottom: 10px;
+	}
+	.card_content{
+		background-color: #FFFFFF;
+		padding: 0 .6rem .5rem .3rem;
+		box-sizing: content-box;
+		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		border-radius: 10px;
+	}
+	.card_logo{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		color: #3a414c;
+		margin-top: 10px;
+		font-size: 13px;
+		font-weight: 400;
+	}
+	.card_logo>li{
+		display: inline-block;
+		padding-left: 10px;
+		border-radius: 10px;
+	}
+	.card_logo>li:nth-child(1){
+		height: 100px;
+		width: 32%;
+		float: left;
+	}
+	.card_logo::after{
+		content: '';
+		display: block;
+		clear: both;
+	}
+	.card_logo>li:nth-child(2){
+		width: 50%;
+		height: 35px;
+	}
+	.card_logo>li:nth-child(3){
+		height: 20px;
+		width: 50%;
+		background-color: #FFFFFF;
+		color: #f3270c;
+		font-size: 16px;
+		font-weight: 400;
+	}
+	.card_logo>li:nth-child(4){
+		width: 60%;
+	}
+	.card_logo>li:nth-child(5){
+		text-align: right;
+		width: 60%;
+		border-bottom: 1px solid #f2f2f2;
+		margin-top: 8px;
+	}
+	.img{
+		padding-top: 35%;
+		margin: 0 auto;
+		margin-top: 10%;
+		text-align: center;
+		width:80rpx;
+		height: 40rpx;
+		background-color: #FFFFFF;
+		border-radius: 50%;
 	}
 </style>
