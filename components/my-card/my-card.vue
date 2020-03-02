@@ -52,6 +52,7 @@
 		},
 		methods:{
 			skipGoodsAllHandler(item,index){
+				console.log(item,'item')
 				// uni.showLoading({
 				//     title: '加载中'
 				// });

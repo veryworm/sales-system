@@ -52,7 +52,7 @@
 			</uni-drawer>
 		</view>
 <!-- goodsswip -->
-		<view class="body_content">
+		<view v-if="currentIndex=='2'|| currentIndex=='0'" class="body_content">
 			<view class="card_content">
 				<ul v-for="item in gridList" :key="item.id"  class="card_logo">
 					<li>
@@ -115,7 +115,8 @@
 				formDrawer:{
 					name:'',
 					lowestprice:'',
-					highsetprice:''
+					highsetprice:'',
+					status:''
 				},
 				filterprimaryproduct:[],
 				searchOn:false
@@ -184,15 +185,18 @@
 			// 提交表单
 			submitData(e){
 				this.searchOn = true
+				let status = this.productFilter[0].status
 				if(e.name !== '' || e.lowestprice !== '' || e.highsetprice !== ''){
 					let resp = this.$store.getters.productFilter3(
 						e.name,
 						e.lowestprice,
-						e.highsetprice
+						e.highsetprice,
+						status
 					)
 					this.filterprimaryproduct = resp
 				}
 				this.search()
+				this.visible = false
 			},
 			// 清空表单
 			formReset(e){

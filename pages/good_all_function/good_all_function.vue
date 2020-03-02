@@ -11,7 +11,7 @@
 		  <uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="text" active-color="#d96b4f"></uni-segmented-control>
 		<view class="content">
 			<view v-show="current === 0">
-				<mygoodsswip></mygoodsswip>
+				
 			</view>
 			<view v-show="current === 1">
 				选项卡2的内容

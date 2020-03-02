@@ -32,7 +32,6 @@ export const mixStatus = {
 		...mapActions('product',['searchProducts']),
 		search(){
 			let resp =  this.searchBody.call(this)
-			console.log(resp,'resp')
 			if(resp){
 				return (this.gridData = resp)
 			}else{
