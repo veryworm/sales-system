@@ -1,28 +1,6 @@
 <template>
 	<view class="content">
-		<!-- {{products}} -->
-		<!-- <view class="body_content">
-			<view class="card_content">
-				{{searchOn}}
-				<ul v-for="item in gridList" :key="item.id"  class="card_logo">
-					<li>
-						<img style="width: 100%;height: 100%;border-radius: 10px;" :src="item.photo" alt="">
-					</li>
-					<li>
-						<text>{{item.description}}</text>
-					</li>
-					<li>
-						<text>￥{{item.price}}</text>
-					</li>
-					<li>
-						<text>评价</text>
-					</li>
-					<li>
-						<text>{{item.name}}</text>
-					</li>
-				</ul>
-			</view> 
-		</view> -->
+		
 	</view>
 </template>
 
@@ -37,32 +15,17 @@
 				mainData:[]
 			};
 		},
-		// props:['searchOn'],
 		watch:{
-			// searchOn:{
-			// 	immediate:true,
-			// 	handler(val){
-			// 		this.searchBody()
-			// 	}
-			// }
+			
 		},
 		mounted() {
-			// this.searchProducts()
-			// this.search()
+			
 		},
 		computed:{
 			// ...mapGetters('product',['productFilter'])
 		},
 		methods:{
 			// ...mapActions('product',['searchProducts']),
-			// searchBody(){
-			// 	if(this.searchOn){
-			// 		console.log(this.$store.getters.productFilter3(),'333')
-			// 		return this.$store.getters.productFilter3()
-			// 	}else{
-			// 		return this.productFilter
-			// 	}
-			// }
 		},
 		
 	}

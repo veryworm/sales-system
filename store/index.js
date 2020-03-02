@@ -12,13 +12,20 @@ import {Categoryapi,Productapi} from "@/utiles/apiController.js"
 
 const store = new Vuex.Store({
    state:{
-      name2:'zhangsan',
 	  products:[]
    },
    getters:{
 	  productFilter3(state){
 		return (name,lowestprice,highsetprice)=>{
-			return state.products.filter( item =>item.name == name || item.price>lowestprice || item.price<highsetprice )
+			if(name !=='' && lowestprice !== ''){
+				return state.products.filter(item=>item.name == name && item.price>lowestprice )
+			}else if(lowestprice !== '' && highsetprice == ''){
+				return state.products.filter(item=>item.price > lowestprice)
+			}else if(lowestprice !== '' && highsetprice !== ''){
+				return state.products.filter(item=>item.price > lowestprice && item.price < highsetprice)
+			}else if(name !=='' && lowestprice == '' && highsetprice == ''){
+				return state.products.filter(item=>item.name == name)
+			}
 		}
 	  }
    },

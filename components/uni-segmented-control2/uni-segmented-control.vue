@@ -11,9 +11,9 @@
 		          : '#fff'
 		        : styleType === 'text'
 		          ? '#000'
-		          : activeColor}" class="segmented-control__text">{{ item }} <text @click="kii" v-if="item=='筛选'"><img src="../../static/shaixuan.png" alt=""></text></text>
+		          : activeColor}" class="segmented-control__text">{{ item }} <text @click="showDrawer" v-if="item == '筛选' "><img src="../../static/shaixuan.png" alt=""></text></text>
 			</view>
-			<!-- 模态框 -->
+<!-- 模态框 -->
 			<uni-drawer mode="right" :visible="visible" @close="closeDrawer">
 			    <view style="padding:30rpx; background-color: #FFFFFF;border-radius: 10px">
 			        <view style="font-weight: bold" class="uni-title">
@@ -51,7 +51,7 @@
 			    </view>
 			</uni-drawer>
 		</view>
-		<!-- goodsswip -->
+<!-- goodsswip -->
 		<view class="body_content">
 			<view class="card_content">
 				<ul v-for="item in gridList" :key="item.id"  class="card_logo">
@@ -73,12 +73,9 @@
 				</ul>
 			</view> 
 		</view>
-		<!--  -->
+<!--  -->
 	</view>
-	
 </template>
-
-
 <script>
 	import uniDrawer from '@/components/uni-drawer/uni-drawer.vue'
 	import uniIcons from "@/components/uni-icons/uni-icons.vue"
@@ -177,7 +174,7 @@
 				}
 			},
 			// 弹出模态框
-			kii(){
+			showDrawer(){
 				this.visible = true
 			},
 			// 关闭模态框
@@ -187,35 +184,21 @@
 			// 提交表单
 			submitData(e){
 				this.searchOn = true
-				if(e.name !== '' || e.lowestprice!=='' || e.highsetprice!==''){
+				if(e.name !== '' || e.lowestprice !== '' || e.highsetprice !== ''){
 					let resp = this.$store.getters.productFilter3(
 						e.name,
 						e.lowestprice,
 						e.highsetprice
 					)
 					this.filterprimaryproduct = resp
-					// console.log(this.filterprimaryproduct,'0')
-					
-				}else if(e.name!== '' && e.lowestprice !== ''){
-					let resp1 = this.$store.getters.productFilter3(
-						e.name,
-						e.lowestprice
-					)
-					this.filterprimaryproduct = resp1
-					// console.log(this.filterprimaryproduct,'1')
-				}else if(e.name!== ''){
-					let resp1 = this.$store.getters.productFilter3(
-						e.name
-					)
-					this.filterprimaryproduct = resp1
-					// console.log(this.filterprimaryproduct,'2')
 				}
 				this.search()
 			},
 			// 清空表单
 			formReset(e){
-				e.detail.value = ''
 				this.currentIndex2 = null
+				this.formDrawer.lowestprice = ''
+				this.formDrawer.highsetprice = ''
 				this.searchOn = false
 				this.search()
 			}
