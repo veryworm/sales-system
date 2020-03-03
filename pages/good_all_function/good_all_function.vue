@@ -2,22 +2,11 @@
 	<view class="content">
 		<view class="header">
 			<uniNavBar @clickLeft="clickLeft" left-icon="back" right-icon="bars" @clickRight="clickright" fixed="true" background-color="#ffffff" status-bar="true">
-				<view slot="default">
 					<img class="header_search" src="../../static/search.png" alt="">
-					<input class="search_input" type="text" placeholder="请输入搜索内容"></li>
-				</view>
+					<input @confirm="confirmData" class="search_input" type="text" placeholder="请输入搜索内容">
 			</uniNavBar>
 		</view>
 		  <uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="text" active-color="#d96b4f"></uni-segmented-control>
-		<view class="content">
-			<view v-show="current === 0">
-				
-			</view>
-			<view v-show="current === 1">
-				选项卡2的内容
-			</view>
-		</view>
-		
 	</view>
 </template>
 
@@ -25,7 +14,10 @@
 	import uniNavBar from "@/components/uni-nav-bar1/uni-nav-bar.vue"
 	import uniSegmentedControl from "@/components/uni-segmented-control2/uni-segmented-control.vue"
 	import mygoodsswip from "@/components/my-goodsswip/mygoodsswip.vue"
+	import { mixStatus } from '../../store/modules/mix.js'
+	import { mapState, mapActions, mapGetters } from 'vuex'
 	export default {
+		mixins:[mixStatus],
 		components:{
 			uniNavBar,
 			uniSegmentedControl,
@@ -37,11 +29,40 @@
 				items: ['销量','价格','筛选'],
 				current: 0,
 				uniqueval:'goods',
-			};
+				productData:[],
+				filterprimaryproduct:[],
+				searchOn:false
+			}
 		},
 		watch:{
+			
+		},
+		mounted() {
+			this.searchProducts()
+			this.productData = this.products
+		},
+		computed:{
+			...mapState('product',['products'])
 		},
 		methods:{
+			...mapActions('product',['searchProducts']),
+			searchBody(){
+				if(this.searchOn){
+					return this.filterprimaryproduct
+					console.log(this.filterprimaryproduct,'filter')
+				}else{
+					console.log(this.products,'pro')
+					return this.products
+				}
+			},
+			confirmData(event){
+				// this.searchOn = true 
+				// let resp = this.$store.getters.productFilter3(
+				// 	event.detail.value,
+				// ) 
+				// this.filterprimaryproduct = resp
+				this.search()
+			},
 			onClickItem(index) {
 				if (this.current !== index.currentIndex) {
 					this.current = index.currentIndex;
@@ -79,17 +100,18 @@
 		background-color: #f2f3fb;
 	}
 	.search_input{
-		padding: .3em 4em .3em 2.2em;
+		padding: .3em 4em .3em 2.5em;
 		border-radius: 30px;
-		background-color: #FFFFFF;
+		background-color: #F2F2F2;
 		font-size: 13px;
-		width: 65%;
+		width: 200px;
+		color: black;
 	}
 	.header_search{
 		position: absolute;
 		width: 16px;
 		height: 15px;
-		top: 28upx;
-		left: 187upx;
+		top: 15px;
+		left: 80px;
 	}
 </style>

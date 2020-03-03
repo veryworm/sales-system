@@ -10,20 +10,17 @@ export const mixStatus = {
 		gridList(){
 			if(this.gridData){
 				return this.gridData
+			}else{
 			}
 		}
 	},
 	watch:{
-		// gridData:{
-		// 	immediate:true,
-		// 	handler(val){
-		// 		if(val){
-		// 			this.search()
-		// 		}else{
-		// 			this.search()
-		// 		}
-		// 	}
-		// }
+		gridData:{
+			immediate:true,
+			handler(){
+				this.search()
+			}
+		}
 	},
 	created(){
 		this.searchProducts()
@@ -37,6 +34,7 @@ export const mixStatus = {
 			}else{
 				return null
 			}
+			return null
 		}
 	}
 }

@@ -5,12 +5,12 @@
 				<view class="xiahua">
 					  <p>精选</h4>
 					  <p>为您推荐</p>
-					  <img style="vertical-align: top;" src="../../static/quxian.png" alt="">
+					  <img style="vertical-align: top; height: 20px; width: 30px;" src="../../static/quxian.png" alt="">
 				</view>
 			<view class="card_content">
 				<ul class="card_logo">
 					<li v-for="item in products" :key="item.id">
-						<img style="width: 100%; height: 100%;" :src="item.photo" alt="">
+						<img style="width: 160px; height: 180px;" :src="item.photo" alt="">
 						<view class="desc">
 							{{item.description}}
 						</view>
@@ -82,7 +82,7 @@
 	}
 	.card_logo>li{
 		float: left;
-		width: 46%;
+		width: 45%;
 		background-color: #FFFFFF;
 		border: 5px solid #f6f6f6 ;
 	}

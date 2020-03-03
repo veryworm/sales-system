@@ -1,6 +1,11 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-
+		{
+		    "path" : "pages/good_all_function/good_all_function",
+		    "style" : {
+				"navigationStyle":"custom"
+			}
+		},
         {
             "path" : "pages/home/home",
             "style" : {
@@ -86,14 +91,13 @@
 				}
 			}
 		}
-        ,{
-            "path" : "pages/good_all_function/good_all_function",
-            "style" : {
-				"navigationStyle":"custom"
-			}
-        }
+        
         ,{
             "path" : "components/my-goodsswip/mygoodsswip",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/product/product",
             "style" : {}
         }
     ],

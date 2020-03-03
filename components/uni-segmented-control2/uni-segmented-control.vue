@@ -11,8 +11,9 @@
 		          : '#fff'
 		        : styleType === 'text'
 		          ? '#000'
-		          : activeColor}" class="segmented-control__text">{{ item }} <text @click="showDrawer" v-if="item == '筛选' "><img src="../../static/shaixuan.png" alt=""></text></text>
+		          : activeColor}" class="segmented-control__text">{{ item }} <text style="font-size: 22px;" v-if="item=='价格'"> > </text> <text v-if="item=='筛选'" style="font-size: 22px;">+</text> </text>
 			</view>
+
 <!-- 模态框 -->
 			<uni-drawer mode="right" :visible="visible" @close="closeDrawer">
 			    <view style="padding:30rpx; background-color: #FFFFFF;border-radius: 10px">
@@ -51,11 +52,22 @@
 			    </view>
 			</uni-drawer>
 		</view>
-<!-- goodsswip -->
-		<view v-if="currentIndex=='2'|| currentIndex=='0'" class="body_content">
+<!-- 价格排序 -->
+		<view v-if="compareStyleOn" class="compate_Style">
+			<view v-for="(item,index) in priceText" :key="item" @click="priceCompare(index=='1'?'hightolow':'lowtohigh')">
+				<text v-if="index==ToIndex" style="font-weight: 300; color: red; font-size: 22px;">√</text> {{item}}
+			</view>
+			<button style="background-color:#ededed; border-radius:10px; border: none;" @click="compareStyleOn=false">关闭</button>
+		</view>
+		<!-- 暂无数据 -->
+		<view v-if="gridList.length=='0'" class="no_data">
+			<text>暂无您想要的商品...</text>
+		</view>
+		<!-- segmented比较 -->
+		<view v-if="currentIndex=='1'" class="body_content">
 			<view class="card_content">
 				<ul v-for="item in gridList" :key="item.id"  class="card_logo">
-					<li>
+					<li @click="skipProductdetail(item)">
 						<img style="width: 100%;height: 100%;border-radius: 10px;" :src="item.photo" alt="">
 					</li>
 					<li>
@@ -65,7 +77,29 @@
 						<text>￥{{item.price}}</text>
 					</li>
 					<li>
-						<text>评价</text>
+						<text>3条评价</text>
+					</li>
+					<li>
+						<text>{{item.name}}</text>
+					</li>
+				</ul>
+			</view> 
+		</view>
+<!-- 筛选 -->
+		<view v-if="currentIndex=='2'|| currentIndex=='0'" class="body_content">
+			<view class="card_content">
+				<ul v-for="item in gridList" :key="item.id"  class="card_logo">
+					<li @click="skipProductdetail(item)">
+						<img style="width: 100%;height: 100%;border-radius: 10px;" :src="item.photo" alt="">
+					</li>
+					<li>
+						<text>{{item.description}}</text>
+					</li>
+					<li>
+						<text>￥{{item.price}}</text>
+					</li>
+					<li>
+						<text>{{currentIndex}}</text>
 					</li>
 					<li>
 						<text>{{item.name}}</text>
@@ -109,6 +143,7 @@
 		data() {
 			return {
 				currentIndex: 0,
+				ToIndex:0,
 				currentIndex2:null,
 				visible:false,
 				show1:false,
@@ -118,8 +153,13 @@
 					highsetprice:'',
 					status:''
 				},
+				priceText:['价格从低到高','价格从高到低'],
 				filterprimaryproduct:[],
-				searchOn:false
+				// 小到大比较
+				compareData:[],
+				searchOn:false,
+				compareOn:false,
+				compareStyleOn:false
 			}
 		},
 		watch: {
@@ -151,7 +191,9 @@
 			searchBody(){
 				if(this.searchOn){
 					return this.filterprimaryproduct
-				}else{
+				}else if(this.compareOn){
+					return this.compareData
+				}else if(this.searchOn== false && this.compareOn== false){
 					return this.productFilter
 				}
 			},
@@ -161,6 +203,11 @@
 					this.$emit('clickItem', {
 						currentIndex: index
 					})
+				}else if(index== '1'){
+					this.compareStyleOn =true
+					this.search()
+				}else{
+					this.visible=true
 				}
 			},
 			// 选择产品name
@@ -204,9 +251,67 @@
 				this.formDrawer.lowestprice = ''
 				this.formDrawer.highsetprice = ''
 				this.searchOn = false
+				this.compareOn = false
 				this.search()
+			},
+			// 比较价格
+			compare1(PropertyName){
+				return function(obj1,obj2){
+					let arr1 = obj1[PropertyName]
+					let arr2 = obj2[PropertyName]
+					if(arr1<arr2){
+						return -1
+					}else if(arr1>arr2){
+						return 1
+					}else{
+						return 0
+					}
+				}
+			},
+			// 高到低
+			compare2(PropertyName){
+				return function(obj1,obj2){
+					let arr1 = obj1[PropertyName]
+					let arr2 = obj2[PropertyName]
+					if(arr1 >arr2){
+						return -1
+					}else if(arr1 < arr2){
+						return 1
+					}else{
+						return 0
+					}
+				}
+			},
+			lowtohigh(){
+				this.compareOn = true
+				let arr = this.gridList
+				let result = arr.sort(this.compare1('price'))
+				this.compareData = result
+				this.search()
+				this.compareStyleOn = false
+			},
+			hightolow(){
+				this.compareOn = true
+				let arr = this.gridList
+				let result = arr.sort(this.compare2('price'))
+				this.compareData = result
+				this.search()
+				this.compareStyleOn = false
+			},
+			priceCompare(text){
+				if(text == 'lowtohigh'){
+					this.ToIndex = 0
+					this.lowtohigh()
+				}else{
+					this.ToIndex = 1
+					this.hightolow()
+				}
+			},
+			skipProductdetail(val){
+				uni.navigateTo({
+				    url: '../../pages/product/product?val='+ JSON.stringify(val)
+				})
 			}
-			
 		}
 	}
 </script>
@@ -384,5 +489,21 @@
 		height: 40rpx;
 		background-color: #FFFFFF;
 		border-radius: 50%;
+	}
+	.compate_Style{
+		width: 95%;
+		height: 50px;
+		background-color: #F2F2F2;
+		padding: 15px 10px 20px 10px;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+	.no_data{
+		width: 120px;
+		position: absolute;
+		left: 50%;
+		top:50%;
+		margin-left: -60px;
+		margin-top: -60px;
 	}
 </style>

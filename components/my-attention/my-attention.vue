@@ -8,7 +8,7 @@
 					  <h4 class="h4">我的关注</h4>
 					  <h4 style="float: right; font-size: 12px; font-weight:400;">
 						  发现更多频道
-						  <h4 style="width: 1.1em; height: 1.1em; vertical-align: middle; margin-left: 10px; background-color: #ef2b2c;  border-radius: 50%;">
+						  <h4 style=" padding: 3px; vertical-align: middle; margin-left: 10px; background-color: #ef2b2c;  border-radius: 50%;">
 							  <img style="float: right;" src="../../static/right.png" alt="">
 						  </h4>
 					  </h4>
@@ -17,8 +17,8 @@
 			<view class="card_content">
 				<ul class="card_logo">
 					<li>
-						<view class="img">
-							<img src="" alt="">
+						<view style="width: 40px; height: 25px; background-color: teal;" class="img">
+							
 						</view>
 						<view>佳佳生鲜</view>
 					</li>
@@ -96,7 +96,7 @@
 	}
 	.card_logo>li{
 		background-color: #FFFFFF;
-		width: 24%;
+		width: 60px;
 		border: 1px solid #FFFFFF;
 		text-align: center;
 		display: inline-block;

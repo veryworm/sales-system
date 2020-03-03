@@ -17,15 +17,14 @@ const store = new Vuex.Store({
    getters:{
 	  productFilter3(state){
 		return (name,lowestprice,highsetprice,status)=>{
-			console.log(status,'sta')
-			if(name !=='' && lowestprice !== ''){
+			if(name !=='' && lowestprice !== '' &&lowestprice !== undefined ){
 				return state.products.filter(item=>item.name == name && item.price>lowestprice  && item.status == status )
-			}else if(lowestprice !== '' && highsetprice == ''){
-				return state.products.filter(item=>item.price > lowestprice)
-			}else if(lowestprice !== '' && highsetprice !== ''){
+			}else if(lowestprice !== ''&&lowestprice !== undefined ){
+				return state.products.filter(item=>item.price > lowestprice && item.status == status)
+			}else if(lowestprice !== '' && highsetprice !== '' &&lowestprice !== undefined && highsetprice !== undefined){
 				return state.products.filter(item=>item.price > lowestprice && item.price < highsetprice && item.status == status)
-			}else if(name !=='' && lowestprice == '' && highsetprice == ''){
-				return state.products.filter(item=>item.name == name && item.status == status)
+			}else if(name !==''){
+				return state.products.filter(item=>item.name == name)
 			}
 		}
 	  }

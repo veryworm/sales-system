@@ -14,7 +14,7 @@
 						<view class="img">
 							<img :src="item.photo" alt="">
 						</view>
-						<view>{{item.name}}</view>
+						<view style="padding-top: 10px;">{{item.name}}</view>
 					</li>
 					<li @click="con1">
 						<view style="background-color: #00e097;" class="img">
@@ -108,7 +108,7 @@
 	.card_content{
 		border-radius: 10px;
 		background-color: #FFFFFF;
-		padding: .4rem .2rem .5rem .2rem;
+		padding: 0 .2rem .5rem .2rem;
 		box-sizing: content-box;
 		font-size: 12px;
 	}
@@ -120,30 +120,25 @@
 		color: #0a1019;
 		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 		font-weight: 500;
+		padding-bottom: 25px;
 	}
 	.card_logo>li{
 		background-color: #FFFFFF;
-		width: 24%;
+		width: 90px;
 		border: 1px solid #FFFFFF;
 		text-align: center;
 		display: inline-block;
 	}
 	.img{
-		padding-top: 35%;
+		padding-bottom: 20px;
 		margin: 0 auto;
-		margin-top: 10%;
+		margin-top: 20px;
 		text-align: center;
 		width:86rpx;
 		height: 30rpx;
 		border-radius: 50%;
-		position: relative;
 	} 
 	.img>img{
-		position: absolute; 
-		left: 50%; 
-		top: 50%; 
-		margin-top: -20px; 
-		margin-left:-20px;
 		border-radius: 50%;
 		width: 40px;
 		height: 40px;

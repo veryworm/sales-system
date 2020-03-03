@@ -1,14 +1,14 @@
 <template>
 	<view class="content"> 
 		<!-- 搜索框 -->
-		<view class="header">
-			<uniNavBar left-icon="person-filled" right-icon="scan" color="#ffffff" fixed="true" background-color="#d42319" status-bar="true">
-				<view slot="default">
-					<img class="header_search" src="../../static/search.png" alt="">
-					<input class="search_input" type="text" placeholder="请输入搜索内容"></li>
-				</view>
-			</uniNavBar>
-		</view>
+			<view style="margin: 0; padding: 0;">
+				<uniNavBar left-icon="person-filled" right-icon="scan" color="#ffffff" fixed="true" background-color="#d42319" status-bar="true">
+					<view slot="left">
+						<input class="search_input" type="text" placeholder="请输入搜索内容">
+						<img class="header_search" src="../../static/search.png" alt="">
+					</view>
+				</uniNavBar>
+			</view>
 		<view class="category_rows">
 			<uni-segmented-control
 				:current="current"
@@ -20,9 +20,8 @@
 			>
 			</uni-segmented-control>
 		</view>
-		<view style="padding: 120px 0 10px 0">
 			<!-- 轮播图 -->
-			<view v-if="current == '0'">
+			<view style="margin-top: 120px;" v-if="current == '0'">
 				<view class="uni-padding-wrap">
 					<view  class="page-section swiper">
 						<view class="page-section-spacing">
@@ -54,7 +53,6 @@
 			<view v-if="current == '2'">
 				<!-- 庭微信{{categoryData}} -->
 			</view>
-		</view>
 	</view>
 </template>
 
@@ -157,7 +155,6 @@
 					},
 					success: (res) => {
 					    this.categoryData= res.data.data
-						// console.log(this.categoryData,'data')
 					},
 					fail:(res)=>{
 						
@@ -187,14 +184,14 @@
 		border-radius: 30px;
 		background-color: #FFFFFF;
 		font-size: 13px;
-		width: 65%;
+		width: 170px;
 	}
 	.header_search{
 		position: absolute;
 		width: 16px;
 		height: 15px;
-		top: 28upx;
-		left: 187upx;
+		bottom: 28upx;
+		left: 70upx;
 	}
 	// 商品分类
 	.category_rows{
@@ -207,7 +204,7 @@
 	/* 轮播 */
 	.uni-padding-wrap{
 		position: absolute;
-		top: 100px;
+		top: 110px;
 		border-radius: 10px;
 		width: 91.5%;
 		left: 35upx;
