@@ -6,7 +6,7 @@ Vue.use(Vuex)
 // import user from './modules/user'
 // import order from './modules/order'
 // import category from './modules/category'
-// import shopcar from './modules/shopcar'
+import shopcar from './modules/shopcar'
 import product from './modules/product'
 import {Categoryapi,Productapi} from "@/utiles/apiController.js"
 
@@ -17,12 +17,14 @@ const store = new Vuex.Store({
    getters:{
 	  productFilter3(state){
 		return (name,lowestprice,highsetprice,status)=>{
-			if(name !=='' && lowestprice !== '' &&lowestprice !== undefined ){
+			if(name !=='' && lowestprice !== ''){
 				return state.products.filter(item=>item.name == name && item.price>lowestprice  && item.status == status )
-			}else if(lowestprice !== ''&&lowestprice !== undefined ){
-				return state.products.filter(item=>item.price > lowestprice && item.status == status)
-			}else if(lowestprice !== '' && highsetprice !== '' &&lowestprice !== undefined && highsetprice !== undefined){
-				return state.products.filter(item=>item.price > lowestprice && item.price < highsetprice && item.status == status)
+			}else if(lowestprice !== '' && highsetprice !== '' ){
+				return state.products.filter(item=>item.price >= lowestprice && item.price <= highsetprice && item.status == status)
+			}else if(highsetprice !== '' ){
+				return state.products.filter(item=>item.price <= highsetprice && item.status == status)
+			}else if(lowestprice !== ''){
+				return state.products.filter(item=>item.price >= lowestprice && item.status == status)
 			}else if(name !==''){
 				return state.products.filter(item=>item.name == name)
 			}
@@ -43,7 +45,11 @@ const store = new Vuex.Store({
 	   	        'Accept': 'application/json'
 	   	    },
 	   	    success: (res) => {
-	   				commit('refreshProducts',res.data.data)
+				res.data.data.forEach(item=>{
+					item.number = 0,
+					item.isLovegoods = false
+				})
+	   			commit('refreshProducts',res.data.data)
 	   	    },
 	   		fail: (res) =>{
 	   			
@@ -56,6 +62,7 @@ const store = new Vuex.Store({
     // order,
     // category,
     product,
+	shopcar
     // shopcar
  }
 })

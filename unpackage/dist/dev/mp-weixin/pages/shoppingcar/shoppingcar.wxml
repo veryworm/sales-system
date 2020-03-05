@@ -1,1 +1,1 @@
-<view>购物车</view>
+<view><button data-event-opts="{{[['tap',[['ll',['$event']]]]]}}" bindtap="__e">clickme</button></view>

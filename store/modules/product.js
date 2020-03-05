@@ -24,6 +24,10 @@ export default {
       	        'Accept': 'application/json'
       	    },
       	    success: (res) => {
+				res.data.data.forEach(item=>{
+					item.number = 0,
+					item.isLovegoods = false
+				})
 				commit('refreshProducts',res.data.data)
       	    },
       		fail: (res) =>{

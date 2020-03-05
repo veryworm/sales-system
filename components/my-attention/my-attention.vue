@@ -8,10 +8,10 @@
 					  <h4 class="h4">我的关注</h4>
 					  <h4 style="float: right; font-size: 12px; font-weight:400;">
 						  发现更多频道
-						  <h4 style=" padding: 3px; vertical-align: middle; margin-left: 10px; background-color: #ef2b2c;  border-radius: 50%;">
-							  <img style="float: right;" src="../../static/right.png" alt="">
+						  <h4 style=" padding: 3px;  margin-left: 10px; background-color: #ef2b2c;  border-radius: 50%;">
+							  <img style="float: right; width: 15px; height:15px;" src="../../static/right.png" alt="">
 						  </h4>
-					  </h4>
+					  </h4> 
 				</view>
 			</view>
 			<view class="card_content">
@@ -113,10 +113,6 @@
 	} 
 	.img>img{
 		position: absolute; 
-		left: 50%; 
-		top: 50%; 
-		margin-top: -10px; 
-		margin-left:-10px ;
 		width: 20px;
 		height: 20px;
 	}

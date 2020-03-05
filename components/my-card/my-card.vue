@@ -14,14 +14,16 @@
 						<view class="img">
 							<img :src="item.photo" alt="">
 						</view>
-						<view style="padding-top: 10px;">{{item.name}}</view>
-					</li>
-					<li @click="con1">
-						<view style="background-color: #00e097;" class="img">
-							<img style="width: 20px; height: 20px; padding:10px 0 0 10px; border-radius: unset;" src="../../static/all_fruit.png" alt="">
+						<view class="img">
+							<text>{{item.name}}</text>
 						</view>
-						<view>test2</view>
 					</li>
+					<!-- <li @click="con1">
+						<view style="background-color: #00e097;">
+							<img  alt="">
+						</view>
+						<view>{{categoryData.length}}</view>
+					</li> -->
 				</ul>
 			</view> 
 		</view>
@@ -120,22 +122,20 @@
 		color: #0a1019;
 		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 		font-weight: 500;
-		padding-bottom: 25px;
+		padding-bottom: 15px;
 	}
 	.card_logo>li{
 		background-color: #FFFFFF;
-		width: 90px;
 		border: 1px solid #FFFFFF;
 		text-align: center;
 		display: inline-block;
 	}
 	.img{
-		padding-bottom: 20px;
 		margin: 0 auto;
 		margin-top: 20px;
 		text-align: center;
-		width:86rpx;
-		height: 30rpx;
+		width:88px;
+		height: 30px;
 		border-radius: 50%;
 	} 
 	.img>img{

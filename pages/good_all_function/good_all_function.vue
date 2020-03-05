@@ -56,12 +56,13 @@
 				}
 			},
 			confirmData(event){
+				console.log(this.ShoppingData,'kkk')
 				// this.searchOn = true 
 				// let resp = this.$store.getters.productFilter3(
 				// 	event.detail.value,
 				// ) 
 				// this.filterprimaryproduct = resp
-				this.search()
+				// this.search()
 			},
 			onClickItem(index) {
 				if (this.current !== index.currentIndex) {
@@ -111,7 +112,6 @@
 		position: absolute;
 		width: 16px;
 		height: 15px;
-		top: 15px;
-		left: 80px;
+		line-height: 1em;
 	}
 </style>

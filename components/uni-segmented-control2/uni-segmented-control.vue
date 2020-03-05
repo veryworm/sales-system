@@ -421,6 +421,7 @@
 	}
 	.body_content{
 		margin-top: 15px;
+		padding-top: 5px;
 		margin-left: 4%;
 		height: 100%;
 		width: 92%;
