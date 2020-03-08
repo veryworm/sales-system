@@ -69,7 +69,7 @@
 		border-radius: 10px;
 		background-color: #FFFFFF;
 		font-size: 12px;
-		margin-left: 20px;
+		margin-left: 10px;
 	}
 	.card_logo{
 		list-style: none;
@@ -82,7 +82,7 @@
 	}
 	.card_logo>li{
 		float: left;
-		width: 155px;
+		width: 150px;
 		background-color: #FFFFFF;
 		border: 5px solid #f6f6f6 ;
 	}

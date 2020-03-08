@@ -188,13 +188,13 @@
 		},
 		methods: {
 			...mapActions('product',['searchProducts']),
-			searchBody(){
+			async searchBody(){
 				if(this.searchOn){
-					return this.filterprimaryproduct
+					return await this.filterprimaryproduct
 				}else if(this.compareOn){
-					return this.compareData
+					return await this.compareData
 				}else if(this.searchOn== false && this.compareOn== false){
-					return this.productFilter
+					return await this.productFilter
 				}
 			},
 			_onClick(index) {

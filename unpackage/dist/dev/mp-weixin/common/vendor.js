@@ -737,7 +737,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1534,7 +1534,7 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 102:
+/***/ 101:
 /*!*****************************************!*\
   !*** E:/sales_system/static/quxian.png ***!
   \*****************************************/
@@ -1545,7 +1545,7 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAPCAYAAAAG
 
 /***/ }),
 
-/***/ 112:
+/***/ 111:
 /*!*****************************************************!*\
   !*** E:/sales_system/components/uni-icons/icons.js ***!
   \*****************************************************/
@@ -1788,9 +1788,9 @@ var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 16));
 
 
 
-var _shopcar = _interopRequireDefault(__webpack_require__(/*! ./modules/shopcar */ 189));
-var _product = _interopRequireDefault(__webpack_require__(/*! ./modules/product */ 17));
-var _apiController = __webpack_require__(/*! @/utiles/apiController.js */ 18);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}_vue.default.use(_vuex.default); // import user from './modules/user'
+var _shopcar = _interopRequireDefault(__webpack_require__(/*! ./modules/shopcar */ 17));
+var _product = _interopRequireDefault(__webpack_require__(/*! ./modules/product */ 20));
+var _apiController = __webpack_require__(/*! @/utiles/apiController.js */ 21);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}_vue.default.use(_vuex.default); // import user from './modules/user'
 // import order from './modules/order'
 // import category from './modules/category'
 var store = new _vuex.default.Store({ state: {
@@ -2807,82 +2807,13 @@ var index_esm = {
 
 /***/ 17:
 /*!************************************************!*\
-  !*** E:/sales_system/store/modules/product.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _apiController = __webpack_require__(/*! @/utiles/apiController.js */ 18);var _default =
-{
-  namespaced: true,
-  state: {
-    products: [] },
-
-  getters: {
-    productFilter: function productFilter(state) {
-      return state.products.filter(function (item) {return item.status === '100';});
-    }
-    // productFilter1:(state)=>(status)=>{return state.products.filter(item=>item.status== 'status')}
-  },
-  mutations: {
-    refreshProducts: function refreshProducts(state, products) {
-      state.products = products;
-    } },
-
-  actions: {
-    searchProducts: function searchProducts(_ref) {var state = _ref.state,commit = _ref.commit,getters = _ref.getters;
-      uni.request({
-        url: _apiController.Productapi.ProductFindAll.api,
-        method: _apiController.Productapi.ProductFindAll.methods,
-        header: {
-          'Accept': 'application/json' },
-
-        success: function success(res) {
-          res.data.data.forEach(function (item) {
-            item.number = 0,
-            item.isLovegoods = false;
-          });
-          commit('refreshProducts', res.data.data);
-        },
-        fail: function fail(res) {
-          alert(res);
-          // 功能注册
-        } });
-
-    } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 18:
-/*!***********************************************!*\
-  !*** E:/sales_system/utiles/apiController.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.Productapi = exports.Categoryapi = void 0;var baseURL = 'http://182.92.66.130:6677';
-var Categoryapi = {
-  CategoryFindAll: { api: baseURL + '/category/findAll', methods: 'GET' },
-  CategoryFindByCategoryId: { api: baseURL + '/product/findByCategoryId', methods: 'GET' } };exports.Categoryapi = Categoryapi;
-
-var Productapi = {
-  ProductFindAll: { api: baseURL + '/product/findAll', methods: 'GET' },
-  ProductFindById: { api: baseURL + '/product/findById', methods: 'GET' } };exports.Productapi = Productapi;
-
-/***/ }),
-
-/***/ 189:
-/*!************************************************!*\
   !*** E:/sales_system/store/modules/shopcar.js ***!
   \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ 190));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   namespaced: true,
   state: {
@@ -2906,7 +2837,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 190:
+/***/ 18:
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
   \***************************************/
@@ -20013,11 +19944,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   else {}
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ 3), __webpack_require__(/*! ./../webpack/buildin/module.js */ 191)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ 3), __webpack_require__(/*! ./../webpack/buildin/module.js */ 19)(module)))
 
 /***/ }),
 
-/***/ 191:
+/***/ 19:
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -25582,7 +25513,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -25603,14 +25534,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -25686,7 +25617,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -26081,7 +26012,76 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 23:
+/***/ 20:
+/*!************************************************!*\
+  !*** E:/sales_system/store/modules/product.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _apiController = __webpack_require__(/*! @/utiles/apiController.js */ 21);var _default =
+{
+  namespaced: true,
+  state: {
+    products: [] },
+
+  getters: {
+    productFilter: function productFilter(state) {
+      return state.products.filter(function (item) {return item.status === '100';});
+    }
+    // productFilter1:(state)=>(status)=>{return state.products.filter(item=>item.status== 'status')}
+  },
+  mutations: {
+    refreshProducts: function refreshProducts(state, products) {
+      state.products = products;
+    } },
+
+  actions: {
+    searchProducts: function searchProducts(_ref) {var state = _ref.state,commit = _ref.commit,getters = _ref.getters;
+      uni.request({
+        url: _apiController.Productapi.ProductFindAll.api,
+        method: _apiController.Productapi.ProductFindAll.methods,
+        header: {
+          'Accept': 'application/json' },
+
+        success: function success(res) {
+          res.data.data.forEach(function (item) {
+            item.number = 0,
+            item.isLovegoods = false;
+          });
+          commit('refreshProducts', res.data.data);
+        },
+        fail: function fail(res) {
+          alert(res);
+          // 功能注册
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 21:
+/*!***********************************************!*\
+  !*** E:/sales_system/utiles/apiController.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.Productapi = exports.Categoryapi = void 0;var baseURL = 'http://182.92.66.130:6677';
+var Categoryapi = {
+  CategoryFindAll: { api: baseURL + '/category/findAll', methods: 'GET' },
+  CategoryFindByCategoryId: { api: baseURL + '/product/findByCategoryId', methods: 'GET' } };exports.Categoryapi = Categoryapi;
+
+var Productapi = {
+  ProductFindAll: { api: baseURL + '/product/findAll', methods: 'GET' },
+  ProductFindById: { api: baseURL + '/product/findById', methods: 'GET' } };exports.Productapi = Productapi;
+
+/***/ }),
+
+/***/ 26:
 /*!*****************************************!*\
   !*** E:/sales_system/static/search.png ***!
   \*****************************************/
@@ -26135,7 +26135,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 40:
+/***/ 42:
 /*!********************************************!*\
   !*** E:/sales_system/store/modules/mix.js ***!
   \********************************************/
@@ -27090,7 +27090,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/home/home": { "navigationStyle": "custom", "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-segmented-control": "/components/uni-segmented-control/uni-segmented-control", "my-card": "/components/my-card/my-card", "my-attention": "/components/my-attention/my-attention", "my-goods": "/components/my-GoodsTotal/my-GoodsTotal" }, "usingAutoImportComponents": {} }, "pages/category/category": { "navigationBarTitleText": "分类", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shoppingcar/shoppingcar": { "navigationBarTitleText": "购物车", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/my/my": { "navigationBarTitleText": "我的", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/login/login": { "navigationBarTitleText": "登录", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/my-goodsswip/mygoodsswip": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/product/product": { "usingComponents": { "uni-popup": "/components/uni-popup/uni-popup", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/good_all_function/good_all_function": { "navigationStyle": "custom", "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar1/uni-nav-bar", "uni-segmented-control": "/components/uni-segmented-control2/uni-segmented-control", "mygoodsswip": "/components/my-goodsswip/mygoodsswip" }, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/home/home": { "navigationStyle": "custom", "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-icons": "/components/uni-icons/uni-icons", "uni-segmented-control": "/components/uni-segmented-control/uni-segmented-control", "my-card": "/components/my-card/my-card", "my-attention": "/components/my-attention/my-attention", "my-goods": "/components/my-GoodsTotal/my-GoodsTotal" }, "usingAutoImportComponents": {} }, "pages/good_all_function/good_all_function": { "navigationStyle": "custom", "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar1/uni-nav-bar", "uni-segmented-control": "/components/uni-segmented-control2/uni-segmented-control", "mygoodsswip": "/components/my-goodsswip/mygoodsswip" }, "usingAutoImportComponents": {} }, "pages/shoppingcar/shoppingcar": { "navigationBarTitleText": "购物车", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/my/my": { "navigationBarTitleText": "我的", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/login/login": { "navigationBarTitleText": "登录", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/my-goodsswip/mygoodsswip": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/product/product": { "usingComponents": { "uni-popup": "/components/uni-popup/uni-popup", "uni-number-box": "/components/uni-number-box/uni-number-box" }, "usingAutoImportComponents": {} }, "pages/order/order": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 
@@ -27106,7 +27106,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 94:
+/***/ 93:
 /*!****************************************!*\
   !*** E:/sales_system/static/right.png ***!
   \****************************************/

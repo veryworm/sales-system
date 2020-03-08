@@ -1,4 +1,4 @@
-<template>
+	<template>
 	<view class="content"> 
 		<!-- 搜索框 -->
 			<view style="margin: 0; padding: 0;">
@@ -38,10 +38,10 @@
 				<myCard :categoryData="categoryData">
 					<!-- 分类卡片 -->
 				</myCard>
-				<view style="margin-top: 10px;">
+				<!-- <view style="margin-top: 10px;"> -->
 					<!-- 我的关注 -->
-					<myAttention></myAttention>
-				</view>
+					<!-- <myAttention></myAttention> -->
+				<!-- </view> -->
 				<view style="margin-top: 10px;">
 					<!-- 所有产品 -->
 					<myGoods :products="products"></myGoods>
@@ -204,7 +204,7 @@
 	/* 轮播 */
 	.uni-padding-wrap{
 		position: absolute;
-		top: 120px;
+		top: 200upx;
 		border-radius: 10px;
 		width: 91.5%;
 		left: 35upx;

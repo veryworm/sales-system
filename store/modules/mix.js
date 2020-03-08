@@ -15,20 +15,15 @@ export const mixStatus = {
 		}
 	},
 	watch:{
-		gridData:{
-			immediate:true,
-			handler(){
-				this.search()
-			}
-		}
+		
 	},
 	created(){
 		this.searchProducts()
 	},
 	methods:{
 		...mapActions('product',['searchProducts']),
-		search(){
-			let resp =  this.searchBody.call(this)
+		async search(){
+			let resp =  await this.searchBody.call(this)
 			if(resp){
 				return (this.gridData = resp)
 			}else{

@@ -134,13 +134,13 @@
 		margin: 0 auto;
 		margin-top: 20px;
 		text-align: center;
-		width:88px;
+		width:77px;
 		height: 30px;
 		border-radius: 50%;
 	} 
 	.img>img{
 		border-radius: 50%;
-		width: 40px;
-		height: 40px;
+		width: 35px;
+		height: 35px;
 	}
 </style>

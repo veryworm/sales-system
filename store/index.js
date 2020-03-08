@@ -47,7 +47,7 @@ const store = new Vuex.Store({
 	   	    success: (res) => {
 				res.data.data.forEach(item=>{
 					item.number = 0,
-					item.isLovegoods = false
+					item.checkone = true
 				})
 	   			commit('refreshProducts',res.data.data)
 	   	    },

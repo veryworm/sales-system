@@ -1,79 +1,50 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	{
+	    "path" : "pages/my/my",
+	    "style" : {
+			"navigationBarTitleText": "我的",
+			"navigationBarBackgroundColor":"rgba(233,10,20,1)",
+			"navigationBarTextStyle":"white",
+			"app-plus": {
+				"titleNView": {
+					"buttons": [{
+						"type":"float",
+						"fontSize": "13px",
+						"text":"设置"
+					}]
+				}
+			}
+		}
+	},
+	{
+	    "path" : "pages/home/home",
+	    "style" : {
+	    	"navigationStyle":"custom"	
+	    }
+	},
 		{
 		    "path" : "pages/good_all_function/good_all_function",
 		    "style" : {
 				"navigationStyle":"custom"
 			}
-		},
-        {
-            "path" : "pages/home/home",
-            "style" : {
-            	"navigationStyle":"custom",
-            	"app-plus": {
-            		"bounce": "vertical",
-            		"titleNView": {
-            			"buttons": [{
-            				"text": "\ue534",
-            				"fontSrc": "/static/uni.ttf",
-            				"fontSize": "22px",
-            				"color": "#FFFFFF"
-            			}]
-            		}
-            	}
-            }
-        }
-        ,{
-            "path" : "pages/category/category",
-            "style" : {
-				"navigationBarTitleText": "分类",
-				"app-plus": {
-					"bounce": "vertical",
-					"titleNView": {
-						"buttons": [{
-							"text": "\ue534",
-							"fontSrc": "/static/uni.ttf",
-							"fontSize": "22px",
-							"color": "#FFFFFF"
-						}]
-					}
-				}
-			}
-        }
+		}
+        
         ,{
             "path" : "pages/shoppingcar/shoppingcar",
             "style" : {
 				"navigationBarTitleText": "购物车",
 				"app-plus": {
-					"bounce": "vertical",
 					"titleNView": {
 						"buttons": [{
-							"text": "\ue534",
-							"fontSrc": "/static/uni.ttf",
-							"fontSize": "22px",
-							"color": "#FFFFFF"
+							"type":"menu",
+							"fontSize": "22px"
 						}]
 					}
 				}
 			}
         }
-        ,{
-            "path" : "pages/my/my",
-            "style" : {
-				"navigationBarTitleText": "我的",
-				"app-plus": {
-					"bounce": "vertical",
-					"titleNView": {
-						"buttons": [{
-							"text": "\ue534",
-							"fontSrc": "/static/uni.ttf",
-							"fontSize": "22px",
-							"color": "#FFFFFF"
-						}]
-					}
-				}
-			}
-        },
+        ,
 		{
 		    "path" : "pages/login/login",
 		    "style" : {
@@ -101,6 +72,10 @@
             "style" : {}
         }
 		
+        ,{
+            "path" : "pages/order/order",
+            "style" : {}
+        }
     ],
 	"tabBar": {
 	    "color": "#7A7E83",
@@ -112,12 +87,7 @@
 	        "iconPath": "static/c1.png",
 	        "selectedIconPath": "static/c2.png",
 	        "text": "首页"
-	    }, {
-	        "pagePath": "pages/category/category",
-	        "iconPath": "static/c3.png",
-	        "selectedIconPath": "static/c4.png",
-	        "text": "分类"
-	    }, {
+	    },{
 	        "pagePath": "pages/shoppingcar/shoppingcar",
 	        "iconPath": "static/c3.png",
 	        "selectedIconPath": "static/c4.png",
@@ -127,15 +97,7 @@
 	        "iconPath": "static/c3.png",
 	        "selectedIconPath": "static/c4.png",
 	        "text": "我的"
-	    }],
-		 "midButton": {
-			"width": "80px",
-			"height": "50px",
-			"text": "文字",
-			"iconPath": "static/api.png",
-			"iconWidth": "24px",
-			"backgroundImage": "static/apiHL.png"
-		}
+	    }]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
