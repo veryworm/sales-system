@@ -5,16 +5,16 @@
 		 :key="index" :style="{
         backgroundColor: index === currentIndex && styleType === 'button' ? activeColor : '',borderColor: index === currentIndex&&styleType === 'text'||styleType === 'button'?activeColor:'transparent'
       }"
-		 class="segmented-control__item" @click="_onClick(index)">
+		 class="segmented-control__item" @click="_onClick(item,index)">
 			<text :style="{color:
           index === currentIndex
             ? styleType === 'text'
               ? activeColor
               : '#fff'
             : styleType === 'text'
-              ? '#191919'
+              ? '#ffffff'
               : activeColor}"
-			 :class="[index === currentIndex? 'segmented-control__text1':'segmented-control__text']">{{ item }}</text>
+			 :class="[index === currentIndex? 'segmented-control__text1':'segmented-control__text']">{{ item.name }}</text>
 		</view>
 	</view>
 </template>
@@ -58,10 +58,10 @@
 			this.currentIndex = this.current
 		},
 		methods: {
-			_onClick(index) {
+			_onClick(item,index) {
 				if (this.currentIndex !== index) {
 					this.currentIndex = index
-					this.$emit('clickItem', {currentIndex:index})
+					this.$emit('clickItem', {item1:item,currentIndex:index})
 				}
 			}
 		}
@@ -117,7 +117,7 @@
 	}
 
 	.segmented-control__text {
-		font-size: 12px;
+		font-size: 13px;
 		line-height: 20px;
 		text-align: center;
 	}

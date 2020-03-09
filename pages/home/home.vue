@@ -62,7 +62,7 @@
 	import myAttention from '@/components/my-attention/my-attention.vue'
 	import myGoods from '@/components/my-GoodsTotal/my-GoodsTotal.vue'
 	import uniIcons from "@/components/uni-icons/uni-icons.vue"
-	import uniSegmentedControl from "@/components/uni-segmented-control/uni-segmented-control.vue"
+	import uniSegmentedControl from "@/components/uni-segmented-control1/uni-segmented-control.vue"
 	import {Categoryapi,Productapi} from "@/utiles/apiController.js"
 	export default {
 		components: {

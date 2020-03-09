@@ -18,26 +18,25 @@
 				</ul>
 			</view> 
 			<!-- 选择商品 -->
-			
 			<view class="uni-list">
 				<view class="choice_goods">
 					选取您喜欢的商品哦
 				</view>
 				<checkbox-group @change="checkboxChange">
 					<label class="uni-list-cell uni-list-cell-pd" v-for="(itemss,indexx) in orderLines.values()" :key="itemss.productName">
-							<checkbox :value="itemss.productName" :key="itemss.productName" :checked="itemss.checked" />
-							<text style="font-size: 13px; font-weight:550;">{{itemss.productName}}</text></br>
+						<checkbox :value="itemss.productName" :key="itemss.productName" :checked="itemss.checked" />
+						<text style="font-size: 13px; font-weight:550;">{{itemss.productName}}</text></br>
 					</label>
 				</checkbox-group>
 			</view>
-			
 		</view>
+		<!-- 选取商品价格总额，结算 -->
 		<view class="confirm_order">
 			<view class="order_total">
 				合计的:¥{{totalprice}}
 			</view>
 			<view class="order_confirm">
-				 <button @click="ToComputePrice" class="mini-btn" type="warn" size="mini">去结算({{selectData.length}})</button>
+				<button @click="ToComputePrice" class="mini-btn" type="warn" size="mini">去结算({{selectData.length}})</button>
 			</view>
 		</view>
 	</view>
@@ -62,12 +61,7 @@
 		},
 		methods: {
 			...mapMutations('shopcar',['TobuyShop']),
-			ToComputePrice(){
-				uni.navigateTo({
-					url:'../order/order'
-				})
-			},
-			checkboxChange: function (e) {
+			checkboxChange(e){
 				let arr = Array.from(this.orderLines.values())
 				this.selectData = e.detail.value
 				let result = 0
@@ -81,9 +75,10 @@
 								productId:item.productId,  //id
 								productName:item.productName,
 								price:item.price,
-								number:item.number
-							} 
-							// this.TobuyShop(orderLine2)
+								number:item.number,
+								photo:item.photo
+							} 	
+							this.TobuyShop(orderLine2)
 						}
 					} 
 				}
@@ -101,6 +96,12 @@
 				}else{
 					this.totalprice = 0
 				}
+			},
+			// 跳转下单页面
+			ToComputePrice(){
+				uni.navigateTo({
+					url:'../order/order?price='+this.totalprice
+				})
 			}
 		}
 	}

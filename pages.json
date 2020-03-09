@@ -1,36 +1,30 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	{
-	    "path" : "pages/my/my",
-	    "style" : {
-			"navigationBarTitleText": "我的",
-			"navigationBarBackgroundColor":"rgba(233,10,20,1)",
-			"navigationBarTextStyle":"white",
-			"app-plus": {
-				"titleNView": {
-					"buttons": [{
-						"type":"float",
-						"fontSize": "13px",
-						"text":"设置"
-					}]
-				}
+		{
+			"path" : "pages/my/my",
+			"style" : {
+				"navigationStyle":"custom"	
 			}
-		}
-	},
-	{
-	    "path" : "pages/home/home",
-	    "style" : {
-	    	"navigationStyle":"custom"	
-	    }
-	},
+		},
+		{
+			"path" : "pages/my/myAccount",
+			"style" : {
+				"navigationBarTitleText": "账户设置"
+			}
+		},
+		{
+			"path" : "pages/home/home",
+			"style" : {
+				"navigationStyle":"custom"	
+			}
+		},
 		{
 		    "path" : "pages/good_all_function/good_all_function",
 		    "style" : {
 				"navigationStyle":"custom"
 			}
-		}
-        
-        ,{
+		},
+		{
             "path" : "pages/shoppingcar/shoppingcar",
             "style" : {
 				"navigationBarTitleText": "购物车",
@@ -43,8 +37,7 @@
 					}
 				}
 			}
-        }
-        ,
+        },
 		{
 		    "path" : "pages/login/login",
 		    "style" : {
@@ -61,21 +54,33 @@
 					}
 				}
 			}
-		}
-        
-        ,{
+		},
+		{
             "path" : "components/my-goodsswip/mygoodsswip",
             "style" : {}
-        }
-        ,{
+        },
+		{
             "path" : "pages/product/product",
             "style" : {}
-        }
-		
-        ,{
+        },
+		{
             "path" : "pages/order/order",
-            "style" : {}
-        }
+            "style" : {
+				"navigationBarTitleText":"填写订单"
+			}
+        },
+		{
+		    "path" : "pages/order/orderstatus",
+		    "style" : {
+				"navigationStyle":"custom"
+			}
+		},
+		{
+		    "path" : "pages/order/searchorder",
+		    "style" : {
+				"navigationStyle":"custom"
+			}
+		}
     ],
 	"tabBar": {
 	    "color": "#7A7E83",
@@ -84,18 +89,18 @@
 	    "backgroundColor": "#ffffff",
 	    "list": [{
 	        "pagePath": "pages/home/home",
-	        "iconPath": "static/c1.png",
-	        "selectedIconPath": "static/c2.png",
+	        "iconPath": "static/tabBar/home1.png",
+	        "selectedIconPath": "static/tabBar/home2.png",
 	        "text": "首页"
 	    },{
 	        "pagePath": "pages/shoppingcar/shoppingcar",
-	        "iconPath": "static/c3.png",
-	        "selectedIconPath": "static/c4.png",
+	        "iconPath": "static/tabBar/shopcar1.png",
+	        "selectedIconPath": "static/tabBar/shopcar2.png",
 	        "text": "购物车"
 	    }, {
 	        "pagePath": "pages/my/my",
-	        "iconPath": "static/c3.png",
-	        "selectedIconPath": "static/c4.png",
+	        "iconPath": "static/tabBar/my1.png",
+	        "selectedIconPath": "static/tabBar/my2.png",
 	        "text": "我的"
 	    }]
 	},
