@@ -111,7 +111,6 @@
 		border-radius: 10px;
 		background-color: #FFFFFF;
 		padding: 0 .2rem .5rem .2rem;
-		box-sizing: content-box;
 		font-size: 12px;
 	}
 	.card_logo{
@@ -129,15 +128,19 @@
 		border: 1px solid #FFFFFF;
 		text-align: center;
 		display: inline-block;
+		width:75px;
+		height: 30px;
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 20px;
 	}
-	.img{
+	/* .img{
 		margin: 0 auto;
 		margin-top: 20px;
 		text-align: center;
-		width:77px;
-		height: 30px;
+		
 		border-radius: 50%;
-	} 
+	} */
 	.img>img{
 		border-radius: 50%;
 		width: 35px;

@@ -4,32 +4,53 @@
 			  <!-- 这里是状态栏 -->
 		</view>
 		<view> 
-			<uni-nav-bar background-color="#ff474a" color="#ffffff"  @clickRight="setting" right-text="设置" ></uni-nav-bar>
+			<uni-nav-bar background-color="#244147" color="#ffffff"  @clickRight="setting" right-text="设置" title="我的信息" ></uni-nav-bar>
 		</view>
 		<view class="my_header">
 			<view class="my_image">
 				
 			</view>
-			<view class="my_name">
-				name
+			<view @click="toLoginOrRegister" class="my_name">
+				<text>登录/注册 ></text>
 			</view>
 		</view>
 		<view class="my_order_total">
 			<ul>
 				<li @click="toOrderStatus(index)" v-for="(item,index) in myOrderStatus" :key="item.name">
-					<img :src="item.imgsrc" alt=""> <br>
+					<view style="position: relative; left: 80%;"><uni-badge text="3" type="error" :inverted="false"></uni-badge></view>
+					<img style="width:20px; height: 20px;" :src="item.imgsrc" alt=""> <br>
 					{{item.name}}
 				</li>
 			</ul>
+		</view> 
+		<view class="other_message">
+			<uni-list>
+			    <uni-list-item title="标题文字" note="描述信息"></uni-list-item>
+			    <uni-list-item title="标题文字" note="描述信息" :show-badge="true" badge-text="12"></uni-list-item>
+			    <uni-list-item title="标题文字" note="描述信息" :show-badge="true" badge-text="12"></uni-list-item>
+			    <uni-list-item title="标题文字" note="描述信息" :show-badge="true" badge-text="12"></uni-list-item>
+			    <uni-list-item title="标题文字" note="描述信息" :show-badge="true" badge-text="12"></uni-list-item>
+			    <uni-list-item title="标题文字" note="描述信息" :show-badge="true" badge-text="12"></uni-list-item>
+			    <uni-list-item title="标题文字" note="描述信息" :show-badge="true" badge-text="12"></uni-list-item>
+			    <uni-list-item title="标题文字" note="描述信息" :show-badge="true" badge-text="12"></uni-list-item>
+			    <uni-list-item title="标题文字" note="描述信息" :show-badge="true" badge-text="12"></uni-list-item>
+			    <uni-list-item title="标题文字" note="描述信息" :show-badge="true" badge-text="12"></uni-list-item>
+			</uni-list>
 		</view>
 	</view>
 </template>
 
 <script>
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
+	import uniBadge from "@/components/uni-badge/uni-badge.vue"
+	import uniList from "@/components/uni-list/uni-list.vue"
+	import uniListItem from "@/components/uni-list-item/uni-list-item.vue"
 	export default {
 		components: {
-			uniNavBar
+			uniNavBar,
+			uniBadge,
+			uniList,
+			uniListItem
 		},
 		data() {
 			return {
@@ -64,6 +85,12 @@
 				uni.navigateTo({
 					url:'./myAccount'
 				})
+			},
+			// 登录,注册
+			toLoginOrRegister(){
+				uni.navigateTo({
+					url:'../login/login'
+				})
 			}
 		}
 	}
@@ -74,10 +101,15 @@
 		background-color: #F2F2F2;
 		padding-bottom: 10px;
 	}
+	.status_bar {
+	      height: var(--status-bar-height);
+	      width: 100%;
+	}
 	.my_header{
-		width: 95%;
+		width: 100%;
 		padding: 5px 10px 20px 10px;
-		background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
+		background-image:url('../../static/obscureimg.jpg');
+		// background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
 	}
 	.my_image{
 		border-radius: 50%;
@@ -94,6 +126,7 @@
 	.my_name{
 		color: #FFFFFF;
 		margin-left: 80px;
+		font-size: 16px;
 	}
 	.my_order_total{
 		margin-top: 10px; 
@@ -118,6 +151,12 @@
 		margin-left: 20px;
 		text-align: center;
 		line-height: 1.5em;
+	}
+	.other_message{
+		margin-top: 10px;
+		background-color: #FFFFFF;
+		padding: 10px;
+		border-radius: 10px;
 	}
 </style>
 

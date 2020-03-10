@@ -110,7 +110,7 @@
 <style>
 	.content{
 		background-color: #f2f2f2;
-		padding: 5px 0 10px 0 ;
+		padding: 5px 0 20px 0 ;
 		
 	}
 	.uni-list{
@@ -121,7 +121,6 @@
 		margin-top: 15px;
 		padding-top: 5px;
 		margin-left: 4%;
-		height: 100%;
 		width: 92%;
 		background-color: #FFFFFF;
 		border-radius: 10px;
@@ -177,9 +176,9 @@
 	.confirm_order{
 		background-color: #ededed;
 		padding: 10px;
-		position: absolute;
-		bottom: 0;
-		width: 95%;
+		position: fixed;
+		width:95%;
+		bottom: 50px;
 	}
 	.order_total{
 		float: left;

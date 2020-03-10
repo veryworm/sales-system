@@ -204,7 +204,7 @@
 	/* 轮播 */
 	.uni-padding-wrap{
 		position: absolute;
-		top: 200upx;
+		top: 220upx;
 		border-radius: 10px;
 		width: 91.5%;
 		left: 35upx;
