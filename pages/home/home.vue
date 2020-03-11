@@ -79,17 +79,6 @@
 				autoplay: true,
 				interval: 2000,
 				duration: 500,
-				swiperContent:[ 
-					{
-						imgsrc:'../../static/swiper/1.jpg'
-					},
-					{
-						imgsrc:'../../static/swiper/2.jpg'
-					},
-					{
-						imgsrc:'../../static/swiper/3.jpg'
-					}
-				],
 				current:0,
 				categories:[],
 				categoryData:[],

@@ -1,7 +1,10 @@
 {
   "navigationStyle": "custom",
+  "navigationBarTitleText": "我的信息",
   "usingComponents": {
     "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
-    "uni-badge": "/components/uni-badge/uni-badge"
+    "uni-badge": "/components/uni-badge/uni-badge",
+    "uni-list": "/components/uni-list/uni-list",
+    "uni-list-item": "/components/uni-list-item/uni-list-item"
   }
 }

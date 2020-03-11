@@ -8,10 +8,15 @@
 		</view>
 		<view class="my_header">
 			<view class="my_image">
-				
+				<img style="width: 60px; height:60px ; border-radius: 50%;" :src="mixinfo.avatar" alt="">
 			</view>
-			<view @click="toLoginOrRegister" class="my_name">
-				<text>登录/注册 ></text>
+			<view class="my_name">
+				<text v-if="mixinfo.id!== undefined">
+					{{mixinfo.name}}
+				</text>
+				<text @click="toLoginOrRegister" v-else>
+					<text>登录/注册 ></text>
+				</text>
 			</view>
 		</view>
 		<view class="my_order_total">
@@ -45,12 +50,20 @@
 	import uniBadge from "@/components/uni-badge/uni-badge.vue"
 	import uniList from "@/components/uni-list/uni-list.vue"
 	import uniListItem from "@/components/uni-list-item/uni-list-item.vue"
+	import { mapState, mapActions, mapGetters , mapMutations } from 'vuex'
+	import { setToken, getToken, removeToken } from '../../utiles/auth.js'
+	import { mixStatus } from '../../store/modules/mix.js'
 	export default {
+		mixins:[mixStatus],
 		components: {
 			uniNavBar,
 			uniBadge,
 			uniList,
 			uniListItem
+		},
+		created() {
+			// alert(1)
+			this.getUserMessage()
 		},
 		data() {
 			return {
@@ -116,7 +129,7 @@
 		float: left;
 		width: 18%;
 		height: 60px;
-		background-color: #007AFF;
+		// background-color: #007AFF;
 	}
 	.my_header::after{
 		content: "";

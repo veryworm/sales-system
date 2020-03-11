@@ -3,31 +3,22 @@
 		{
 			"path" : "pages/login/login",
 			"style" : {
-				"navigationStyle":"custom"
-				// "navigationBarTitleText": "登录",
-				// "app-plus": {
-				// 	"bounce": "vertical",
-				// 	"titleNView": {
-				// 		"buttons": [{
-				// 			"text": "帮助",
-				// 			// "fontSrc": "/static/uni.ttf",
-				// 			"fontSize": "22px",
-				// 			"color": "#FFFFFF"
-				// 		}]
-				// 	}
-				// }
+				"navigationStyle":"custom",
+				"navigationBarTitleText": "登录"
 			}
 		},
 		{
 			"path" : "pages/my/my",
 			"style" : {
-				"navigationStyle":"custom"
+				"navigationStyle":"custom",
+				"navigationBarTitleText": "我的信息"
 			}
 		},
 		{
 			"path" : "pages/home/home",
 			"style" : {
-				"navigationStyle":"custom"	
+				"navigationStyle":"custom",
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
@@ -40,7 +31,8 @@
 		{
 		    "path" : "pages/good_all_function/good_all_function",
 		    "style" : {
-				"navigationStyle":"custom"
+				"navigationStyle":"custom",
+				"navigationBarTitleText": "首页商品"
 			}
 		},
 		{
@@ -60,11 +52,15 @@
 		
 		{
             "path" : "components/my-goodsswip/mygoodsswip",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText": "分类商品"
+			}
         },
 		{
             "path" : "pages/product/product",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText": "分类商品"
+			}
         },
 		{
             "path" : "pages/order/order",
@@ -75,13 +71,15 @@
 		{
 		    "path" : "pages/order/orderstatus",
 		    "style" : {
-				"navigationStyle":"custom"
+				"navigationStyle":"custom",
+				"navigationBarTitleText": "我的订单"
 			}
 		},
 		{
 		    "path" : "pages/order/searchorder",
 		    "style" : {
-				"navigationStyle":"custom"
+				"navigationStyle":"custom",
+				"navigationBarTitleText": "查询订单"
 			}
 		}
         ,{

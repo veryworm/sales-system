@@ -31,7 +31,6 @@ export default {
 				commit('refreshProducts',res.data.data)
       	    },
       		fail: (res) =>{
-				alert(res)
       			// 功能注册
       		}
       	})

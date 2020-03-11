@@ -1,4 +1,8 @@
 {
+  "navigationStyle": "custom",
   "navigationBarTitleText": "登录",
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
+    "uni-indexed-list": "/components/uni-indexed-list/uni-indexed-list"
+  }
 }

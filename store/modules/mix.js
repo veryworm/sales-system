@@ -1,8 +1,10 @@
 import { mapState, mapActions, mapGetters } from 'vuex'
+import { setToken, getToken, removeToken } from '../../utiles/auth.js'
 export const mixStatus = {
 	data(){
 		return {
-			gridData:[]
+			gridData:[],
+			info:{}
 		}
 	},
 	computed:{
@@ -11,6 +13,14 @@ export const mixStatus = {
 			if(this.gridData){
 				return this.gridData
 			}else{
+			}
+		},
+		mixinfo(){
+			if(this.info){
+				return this.info
+			}else{
+				return {}
+				// alert('no')
 			}
 		}
 	},
@@ -22,6 +32,7 @@ export const mixStatus = {
 	},
 	methods:{
 		...mapActions('product',['searchProducts']),
+		...mapActions('user',['info1']),
 		async search(){
 			let resp =  await this.searchBody.call(this)
 			if(resp){
@@ -30,6 +41,17 @@ export const mixStatus = {
 				return null
 			}
 			return null
+		},
+		getUserMessage(){
+			let token = getToken()
+			if(token){
+				let resp = this.info1(token)
+				resp.then((val)=>{
+					this.info = val
+				})
+			}else{
+				this.info = {}
+			}
 		}
 	}
 }

@@ -1,17 +1,18 @@
 {
   "pages": [
-    "pages/home/home",
+    "pages/login/login",
     "pages/my/my",
+    "pages/home/home",
     "pages/my/myAccount",
     "pages/good_all_function/good_all_function",
     "pages/shoppingcar/shoppingcar",
-    "pages/login/login",
     "components/my-goodsswip/mygoodsswip",
     "pages/product/product",
     "pages/order/order",
     "pages/order/orderstatus",
     "pages/order/searchorder",
-    "pages/address/address"
+    "pages/address/address",
+    "pages/address/editAddress"
   ],
   "subPackages": [],
   "window": {
@@ -47,5 +48,5 @@
     ]
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap93.json"
+  "sitemapLocation": "sitemap7.json"
 }

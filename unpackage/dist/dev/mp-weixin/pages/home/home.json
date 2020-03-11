@@ -1,5 +1,6 @@
 {
   "navigationStyle": "custom",
+  "navigationBarTitleText": "首页",
   "usingComponents": {
     "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
     "uni-icons": "/components/uni-icons/uni-icons",
