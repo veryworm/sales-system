@@ -1,0 +1,97 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 卡片 */
+.body_content{ 
+	margin-left: 4%;
+	height: 100%;
+	width: 92%;
+	background-color: #f6f6f6;
+	border-radius: 10px;
+}
+.xiahua{
+	margin-left: 4%;
+	text-align: center;
+	color: #ef2b2c;
+}
+.xiahua>._p:nth-child(2){
+	font-size: 12px;
+}
+.card_content{
+	border-radius: 10px;
+	background-color: #FFFFFF;
+	font-size: 12px;
+	margin-left: 10px;
+}
+.card_logo{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	color: #0a1019;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	font-weight: 500;
+	width: 100%;
+}
+.card_logo>._li{
+	float: left;
+	width: 150px;
+	background-color: #FFFFFF;
+	border: 5px solid #f6f6f6 ;
+}
+.desc{
+	padding-top: 5px;
+	font-size: 14px
+}
+.price{
+	color: #e82d24;
+}
+
+

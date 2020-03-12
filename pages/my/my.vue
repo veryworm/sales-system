@@ -8,11 +8,11 @@
 		</view>
 		<view class="my_header">
 			<view class="my_image">
-				<img style="width: 60px; height:60px ; border-radius: 50%;" :src="mixinfo.avatar" alt="">
+				<img style="width: 60px; height:60px ; border-radius: 50%;" :src="info.avatar" alt="">
 			</view>
 			<view class="my_name">
-				<text v-if="mixinfo.id!== undefined">
-					{{mixinfo.name}}
+				<text v-if="info.id!== undefined">
+					{{info.name}}
 				</text>
 				<text @click="toLoginOrRegister" v-else>
 					<text>登录/注册 ></text>
@@ -54,7 +54,7 @@
 	import { setToken, getToken, removeToken } from '../../utiles/auth.js'
 	import { mixStatus } from '../../store/modules/mix.js'
 	export default {
-		mixins:[mixStatus],
+		// mixins:[mixStatus],
 		components: {
 			uniNavBar,
 			uniBadge,
@@ -62,8 +62,21 @@
 			uniListItem
 		},
 		created() {
-			// alert(1)
-			this.getUserMessage()
+			let token = getToken()
+			if(token){
+				this.info1(token)
+			}else{
+				uni.showToast({
+					title:"token失效,请重新登录",
+					icon:'none'
+				})
+				setTimeout(()=>{
+					uni.hideToast()
+				},1000)
+			}
+		},
+		computed:{
+			...mapState("user",["info"])
 		},
 		data() {
 			return {
@@ -88,6 +101,7 @@
 			}
 		},
 		methods:{
+			...mapActions('user',['info1']),
 			// 跳转订单状态页面
 			toOrderStatus(index){
 				uni.navigateTo({
@@ -96,7 +110,7 @@
 			},
 			setting(){
 				uni.navigateTo({
-					url:'./myAccount'
+					url:'./myAccount' 
 				})
 			},
 			// 登录,注册

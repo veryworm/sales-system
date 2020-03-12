@@ -4,7 +4,6 @@ export const mixStatus = {
 	data(){
 		return {
 			gridData:[],
-			info:{}
 		}
 	},
 	computed:{
@@ -13,14 +12,6 @@ export const mixStatus = {
 			if(this.gridData){
 				return this.gridData
 			}else{
-			}
-		},
-		mixinfo(){
-			if(this.info){
-				return this.info
-			}else{
-				return {}
-				// alert('no')
 			}
 		}
 	},
@@ -32,7 +23,6 @@ export const mixStatus = {
 	},
 	methods:{
 		...mapActions('product',['searchProducts']),
-		...mapActions('user',['info1']),
 		async search(){
 			let resp =  await this.searchBody.call(this)
 			if(resp){
@@ -42,16 +32,34 @@ export const mixStatus = {
 			}
 			return null
 		},
-		getUserMessage(){
-			let token = getToken()
-			if(token){
-				let resp = this.info1(token)
-				resp.then((val)=>{
-					this.info = val
+		// 登录成功提示信息
+		loginsuccess(){
+			uni.showToast({
+				title:'欢迎来到美食客!',
+				icon:'none'
+			})
+			setTimeout(()=>{
+				uni.hideToast()
+				uni.switchTab({
+					url:'../../pages/my/my'
 				})
-			}else{
-				this.info = {}
-			}
+			},1500)
+		},
+		// 登录失败提示信息
+		loginfailed(){
+			
+		},
+		// 退出成功
+		logoutnsuccess(){
+			uni.showToast({
+				title:'退出成功!',
+				icon:'none'
+			})
+			setTimeout(()=>{
+				uni.switchTab({
+					url:'../../pages/my/my'
+				})
+			},1500)
 		}
 	}
 }

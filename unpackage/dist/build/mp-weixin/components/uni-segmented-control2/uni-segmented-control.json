@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "uni-drawer": "/components/uni-drawer/uni-drawer",
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "mygoodsswip": "/components/my-goodsswip/mygoodsswip"
+  }
+}

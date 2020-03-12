@@ -17,9 +17,14 @@ const UserAddressapi = {
 	UserfindById:{api:baseURL + '/address/findByCustomerId?id=',methods:'GET'},
 	UsersaveOrUpdate:{api:baseURL + '/address/saveOrUpdate',methods:'POST'}
 }
+const Customerapi = {
+	CustomerFind:{api:baseURL + '/customer/findAll',methods:'GET'},
+}
 export {
 	Categoryapi,
 	Productapi,
 	Userapi,
-	UserAddressapi
+	UserAddressapi,
+	Customerapi
+	
 }

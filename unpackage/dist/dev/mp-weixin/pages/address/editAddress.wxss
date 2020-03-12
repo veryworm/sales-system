@@ -1,0 +1,103 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.content.data-v-6df1a3b3 {
+  padding: 10px;
+}
+.my_address ._ul.data-v-6df1a3b3 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #F2F2F2;
+}
+.my_address ._ul.data-v-6df1a3b3::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.my_address ._ul > ._li.data-v-6df1a3b3 {
+  float: left;
+  padding: 10px;
+}
+.my_address ._ul > ._li.data-v-6df1a3b3:nth-child(1) {
+  font-size: 14px;
+  margin-right: 15px;
+}
+.uni-input.data-v-6df1a3b3 {
+  font-size: 14px;
+  color: #C0C0C0;
+}
+.address_one.data-v-6df1a3b3 {
+  color: #C0C0C0;
+  font-size: 14px;
+}
+.address_two.data-v-6df1a3b3 {
+  font-weight: 550;
+  font-size: 14px;
+}
+._ul.address_label.data-v-6df1a3b3 {
+  border-bottom: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+._ul.address_label.data-v-6df1a3b3::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+._ul.address_label > ._li.data-v-6df1a3b3 {
+  float: left;
+  font-size: 14px;
+  margin-left: 10px;
+  padding: 2px 20px 2px 20px;
+}
+.labelone.data-v-6df1a3b3 {
+  border: 1px solid #e5e5e5;
+  border-radius: 15px;
+}
+.labeltwo.data-v-6df1a3b3 {
+  border: 1px solid #e5e5e5;
+  border-radius: 15px;
+  background-color: #007AFF;
+  color: #FFFFFF;
+}
+.submit_address_message.data-v-6df1a3b3 {
+  width: 200px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  margin-left: -100px;
+}
+._ul.defalut_address > ._li.data-v-6df1a3b3:nth-child(2) {
+  clear: left;
+  font-size: 12px;
+}
+._ul.defalut_address > ._li.data-v-6df1a3b3:nth-child(3) {
+  float: right;
+}
+

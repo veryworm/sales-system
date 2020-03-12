@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-nav-bar": "/components/uni-nav-bar1/uni-nav-bar",
+    "uni-segmented-control": "/components/uni-segmented-control2/uni-segmented-control",
+    "mygoodsswip": "/components/my-goodsswip/mygoodsswip"
+  }
+}
