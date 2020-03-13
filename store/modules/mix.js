@@ -23,6 +23,7 @@ export const mixStatus = {
 	},
 	methods:{
 		...mapActions('product',['searchProducts']),
+		...mapActions('user',['info1']),
 		async search(){
 			let resp =  await this.searchBody.call(this)
 			if(resp){
@@ -60,6 +61,20 @@ export const mixStatus = {
 					url:'../../pages/my/my'
 				})
 			},1500)
+		},
+		allrefreshtoken(){
+			let token = getToken()
+			if(token){
+				this.info1(token)
+			}else{
+				uni.showToast({
+					title:"token失效,请重新登录",
+					icon:'none'
+				})
+				setTimeout(()=>{
+					uni.hideToast()
+				},1000)
+			}
 		}
 	}
 }

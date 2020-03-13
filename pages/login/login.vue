@@ -4,7 +4,7 @@
 			  <!-- 这里是状态栏 -->
 		</view>
 		<view> 
-			<uni-nav-bar color="#626262"  @clickRight="setting" right-text="帮助">
+			<uni-nav-bar color="#6c8fc8"  @clickRight="setting" right-text="帮助">
 				<view slot="left">
 					<text @click="closeCurrentPage" style="font-size: 26px; font-weight: 550;">×</text>
 				</view>

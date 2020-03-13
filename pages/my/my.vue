@@ -4,7 +4,7 @@
 			  <!-- 这里是状态栏 -->
 		</view>
 		<view> 
-			<uni-nav-bar background-color="#244147" color="#ffffff"  @clickRight="setting" right-text="设置" title="我的信息" ></uni-nav-bar>
+			<uni-nav-bar background-color="#64d9d6" color="#ffffff"  @clickRight="setting" right-text="设置" title="我的信息" ></uni-nav-bar>
 		</view>
 		<view class="my_header">
 			<view class="my_image">
@@ -54,7 +54,7 @@
 	import { setToken, getToken, removeToken } from '../../utiles/auth.js'
 	import { mixStatus } from '../../store/modules/mix.js'
 	export default {
-		// mixins:[mixStatus],
+		mixins:[mixStatus],
 		components: {
 			uniNavBar,
 			uniBadge,
@@ -62,18 +62,7 @@
 			uniListItem
 		},
 		created() {
-			let token = getToken()
-			if(token){
-				this.info1(token)
-			}else{
-				uni.showToast({
-					title:"token失效,请重新登录",
-					icon:'none'
-				})
-				setTimeout(()=>{
-					uni.hideToast()
-				},1000)
-			}
+			this.allrefreshtoken()
 		},
 		computed:{
 			...mapState("user",["info"])

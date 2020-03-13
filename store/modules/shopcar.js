@@ -3,7 +3,9 @@ export default {
 	namespaced:true,
 	state:{
 		orderLines:new Map(),
-		orderLines2:new Map() //下单
+		orderLines2:new Map(), //下单
+		selectPrice:'',
+		currentIndex:0
 	},
 	getters:{
 		total(state){
@@ -20,6 +22,12 @@ export default {
 				result += value.number * value.price
 			}
 			return result
+		},
+		total3(state){
+			return state.selectPrice
+		},
+		isorcurrentindex(state){
+			return state.currentIndex
 		}
 	},
 	mutations:{
@@ -28,12 +36,20 @@ export default {
 			// 克隆对象,改变引用地址,目的是为了让监听机制监听到orderLines的改变
 			state.orderLines = _.clone(state.orderLines)
 		},
-		// 下单
+		// 挑选商品的map
 		TobuyShop(state,orderline2){
 			state.orderLines2.set(orderline2.productId,orderline2)
 			// 克隆对象,改变引用地址,目的是为了让监听机制监听到orderLines的改变
 			state.orderLines2 = _.clone(state.orderLines2)
-			console.log(state.orderLines2,'orderline2')
+		},
+		// 挑选商品的总额
+		selectGoodsTotal(state,price){
+			console.log(price,'sd')
+			state.selectPrice = price
+			state.selectPrice = _.clone(state.selectPrice)
+		},
+		deterIndex(state,index){
+			state.currentIndex = index
 		}
 	}
 }

@@ -40,6 +40,8 @@
             "path" : "pages/shoppingcar/shoppingcar",
             "style" : {
 				"navigationBarTitleText": "购物车",
+				"navigationBarBackgroundColor":"#64d9d6",
+				"navigationBarTextStyle":"white",
 				"app-plus": {
 					"titleNView": {
 						"buttons": [{
@@ -66,7 +68,8 @@
 		{
             "path" : "pages/order/order",
             "style" : {
-				"navigationBarTitleText":"填写订单"
+				"navigationBarTitleText":"填写订单",
+				"navigationStyle":"custom"
 			}
         },
 		{
@@ -86,7 +89,8 @@
         ,{
             "path" : "pages/address/address",
             "style" : {
-				"navigationBarTitleText":"收货地址"
+				"navigationBarTitleText":"收货地址",
+				"navigationStyle":"custom"
 			}
         },
 		{

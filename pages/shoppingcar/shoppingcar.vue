@@ -33,10 +33,10 @@
 		<!-- 选取商品价格总额，结算 -->
 		<view class="confirm_order">
 			<view class="order_total">
-				合计的:¥{{totalprice}}
+				合计	:¥ <text>{{total3 ? total3 : '0'}}.00</text>
 			</view>
 			<view class="order_confirm">
-				<button @click="ToComputePrice" class="mini-btn" type="warn" size="mini">去结算({{selectData.length}})</button>
+				<button :disabled="selectData.length==0" @click="ToComputePrice" class="mini-btn" type="warn" size="mini">去结算({{selectData.length}})</button>
 			</view>
 		</view>
 	</view>
@@ -44,23 +44,24 @@
 
 <script>
 	import { mapState, mapActions, mapGetters , mapMutations } from 'vuex'
+	import { mixStatus } from '../../store/modules/mix.js'
 	export default {
+		mixins:[mixStatus],
 		data() {
 			return {
-				selectData:[],
-				totalprice:0
+				selectData:[]
 			}
 		},
 		computed:{
 			...mapState('shopcar',['orderLines','orderLines2']),
 			...mapGetters('product',['productFilter']),
-			...mapGetters('shopcar',['total','total2'])
+			...mapGetters('shopcar',['total','total2','total3'])
 		}, 
-		mounted() { 
-			// this.searchShopData()
+		created() { 
+			this.allrefreshtoken()
 		},
 		methods: {
-			...mapMutations('shopcar',['TobuyShop']),
+			...mapMutations('shopcar',['TobuyShop','selectGoodsTotal']),
 			checkboxChange(e){
 				let arr = Array.from(this.orderLines.values())
 				this.selectData = e.detail.value
@@ -91,16 +92,15 @@
 						for(let i=0;i<newarr.length;i++){
 							result += newarr[i].number * newarr[i].price
 						}
-						this.totalprice = result
+						// this.totalprice = result
+						this.selectGoodsTotal(result)
 					})
-				}else{
-					this.totalprice = 0
 				}
 			},
 			// 跳转下单页面
 			ToComputePrice(){
 				uni.navigateTo({
-					url:'../order/order?price='+this.totalprice
+					url:'../order/order'
 				})
 			}
 		}

@@ -1,18 +1,24 @@
 <template>
 	<view class="content">
-		<!-- 地址部分 -->
-		<view @click="ToEditAddress" class="address_content">
+		<view class="status_bar">
+			  <!-- 这里是状态栏 -->
+		</view>
+		<view> 
+			<uni-nav-bar background-color="#64d9d6" color="#ffffff" leftIcon="back"  @clickLeft="backtopage"  title="填写订单" ></uni-nav-bar>
+		</view>
+		<!-- 地址部分,判断当前遍历的值是默认地址还是修改后的地址 -->
+		<view v-for="item in choiceAddress.length!==0 ? choiceAddress : defaultAddress" @click="ToEditAddress" :key="item.id" class="address_content">
 			<view class="address_header">
 				<ul>
 					<li>默认</li>
-					<li>地址</li>
+					<li>{{item.province + item.city + item.area}}</li>
 				</ul>
 			</view>
 			<view class="address_apprently_Name">
-				<text>地址</text>
+				<text>{{item.province + item.city + item.area}}</text>
 			</view>
 			<view class="address_name_number">
-				<text>人名  电话号</text>
+				<text>{{item.realname}}   {{item.telephone}}</text>
 				<text style="font-weight: 700; font-size: 16px; float: right;">></text>
 			</view>
 		</view>
@@ -46,7 +52,7 @@
 		</view>
 		<view class="submit_order">
 			<view class="submit_order_totalprice">
-				<text style="font-size: 16px;">¥</text>{{price.price}}
+				<text style="font-size: 16px;">¥</text>{{total3}}
 			</view>
 			<view class="submit_order_button">
 				<button class="mini-btn" type="warn" size="mini">确定订单</button>
@@ -57,22 +63,39 @@
 
 <script>
 	import { mapState, mapActions, mapGetters , mapMutations } from 'vuex'
+	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	export default {
+		components: {
+			uniNavBar,
+		},
 		data() {
 			return {
-				price:''
+				choiceAddress:[],
+				defaultAddress:[]
 			}
 		},
-		onLoad(totalPrice) {
-			this.price = totalPrice
+		onLoad(item) {
+			if(item.val){
+				this.choiceAddress = [JSON.parse(item.val)]
+			}
+		},
+		created() {
+			this.defaultAddress = [this.addresses[0]]
 		},
 		computed:{
 			...mapState('shopcar',['orderLines2']),
+			...mapState('user',['addresses','newresponse']),
+			...mapGetters('shopcar',['total3'])
 		},
 		methods:{
 			ToEditAddress(){
 				uni.navigateTo({
-					// url:''
+					url:'../address/address?val='+ '真'
+				})
+			},
+			backtopage(){
+				uni.switchTab({
+					url:'../shoppingcar/shoppingcar'
 				})
 			}
 		}

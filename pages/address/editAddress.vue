@@ -4,7 +4,7 @@
 			  <!-- 这里是状态栏 -->
 		</view>
 		<view> 
-			<uni-nav-bar background-color="#244147" color="#ffffff" leftIcon="back"  @clickLeft="backToAddress" :title="title1" ></uni-nav-bar>
+			<uni-nav-bar background-color="#64d9d6" color="#ffffff" leftIcon="back"  @clickLeft="backToAddress" :title="title1" ></uni-nav-bar>
 		</view>
 		<view class="my_address">
 				<form class="fo" @submit="formSubmit" ref="formMessage" :model="addressmessage">
@@ -59,7 +59,6 @@
 							</ul>
 						</li>
 					</ul>
-					{{editAddressMessage}}
 					<ul class="defalut_address">
 						<li>设置默认地址</li>
 						<li>提醒：每次下单会默认推荐使用该地址</li>
@@ -78,7 +77,9 @@
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	import { mapState, mapActions, mapGetters , mapMutations } from 'vuex'
 	import { setToken, getToken, removeToken } from '../../utiles/auth.js'
+	import { mixStatus } from '../../store/modules/mix.js'
 	export default {
+		mixins:[mixStatus],
 		components: {
 		    simpleAddress,
 			uniNavBar
@@ -113,50 +114,37 @@
 			}
 		},
 		created() {
-			let token = getToken()
-			if(token){
-				this.info1(token)
-			}else{
-				uni.showToast({
-					title:"token失效,请重新登录",
-					icon:'none'
-				})
-				setTimeout(()=>{
-					uni.hideToast()
-				},1000)
-			}
+			this.allrefreshtoken()
+			this.isAdd()
 		},
 		onLoad(value) {
 			if(value.val== "新增地址"){
-				this.isAdd(value.val)
+				this.editAddressMessage = []
+				
 			}else{
 				this.editAddressMessage = [JSON.parse(value.val)]
 			}
 		},
-		mounted() {
-			
-		},
 		methods:{
-			...mapActions('user',['info1']),
-			// 与picker省市区双向数据绑定
+			...mapActions('user',['info1','SaveOrUpdateAddress']),
+			// textarea与picker省市区双向数据绑定
 			bindTextAreaBlur(e){
-				this.addressmessage.province = e.detail.value
+				this.addressmessage.address = e.detail.value
 			},
 			// 打开picker选省市区
 			openAddres() {
 				this.$refs.simpleAddress.open();
+				console.log(this.$refs.simpleAddress,'ss')
 			},
 			// picker选省市区确认按钮
 			onConfirm(e) {
 				this.addressmessage.province = e.label.province
 				this.addressmessage.city = e.label.city
 				this.addressmessage.area = e.label.area
-				this.addressmessage.address = e.label.address
 				this.pickerText = e.label.address
 			},
 			// 选地址所属规划
 			clicklabel(item,index){
-				console.log(index)
 				this.currentIndex = index
 			},
 			// 地址是否默认选择
@@ -167,28 +155,67 @@
 			formSubmit(e){
 				// 新增
 				if(this.editAddressMessage.length == 0){
-					
+					this.addressmessage.customerId = this.info.id
+					let value = Object.assign(this.addressmessage,e.detail.value)
+					this.SaveOrUpdateAddress(value)
+					.then(()=>{
+						uni.showToast({
+							title:'保存成功',
+							icon:'none',
+							duration:1500
+						})
+						setTimeout(()=>{
+							uni.hideToast()
+							uni.navigateTo({
+								url:'../my/myAccount'
+							})
+						},2000)
+					})
 				}else{
 					// 修改
 					this.addressmessage.id = this.editAddressMessage[0].id
 					this.addressmessage.customerId = this.info.id
 					let value = Object.assign(this.addressmessage,e.detail.value)
+					this.SaveOrUpdateAddress(value)
+					.then(()=>{
+						uni.showToast({
+							title:'保存成功',
+							icon:'none',
+							duration:1500
+						})
+						setTimeout(()=>{
+							uni.hideToast()
+							uni.navigateTo({
+								url:'../my/myAccount'
+							})
+						},2000)
+					})
+					.catch((res)=>{
+						
+					})
 				}
 			},
-			// 判断当前是修改还是新增，如果是新增，输入框的值为当前传的值
-			isAdd(val){
-				if( val== '新增地址' ){
+			// 判断当前是修改还是新增，如果是新增，input的值为当前传的值
+			isAdd(){
+				if( this.editAddressMessage.length == 0 ){
 					this.useLessUserName.realname = ''
 					this.addressmessage.telephone = ''
 				}else{
-					this.useLessUserName.realname = editAddressMessage[0].realname
-					this.addressmessage.telephone = editAddressMessage[0].telephone
+					this.useLessUserName.realname = this.editAddressMessage[0].realname //不传realname
+					this.addressmessage.telephone = this.editAddressMessage[0].telephone
+					this.addressmessage.province = this.editAddressMessage[0].province
+					this.addressmessage.city = this.editAddressMessage[0].city
+					this.addressmessage.area = this.editAddressMessage[0].area
+					this.pickerText = this.editAddressMessage[0].province
+					 + '-' + this.editAddressMessage[0].city 
+					 + '-' + this.editAddressMessage[0].area
+					this.addressmessage.address = this.editAddressMessage[0].address
 				}
 			},
 			// 返回上页
 			backToAddress(){
 				uni.navigateTo({
-					url:'../my/myAccount'
+					url:'./address'
 				})
 			}
 		}

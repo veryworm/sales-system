@@ -1,13 +1,24 @@
 <template>
 	<view class="content">
+		<view class="status_bar">
+			  <!-- 这里是状态栏 -->
+		</view>
+		<view> 
+			<uni-nav-bar background-color="#64d9d6" color="#ffffff" leftIcon="back"  @clickLeft="backToAddress" title="收货地址" ></uni-nav-bar>
+		</view>
 		<view class="my_address">
-			<ul v-for="item in addresses" :key="item.id">
-				<li>{{newresponse.realname}}</li>
-				<li>{{newresponse.telephone}}</li>
-				<li>家</li>
+			<ul v-for="(item,index) in addresses" :key="item.id">
+				<li>
+					<view v-if="index==isorcurrentindex" class="isIndex">
+						√
+					</view>
+				</li>
+				<li>{{newresponse[0].realname}}</li>
+				<li>{{newresponse[0].telephone}}</li>
+				<li>家</li> 
 				<li></li>
-				<li>{{item.province + item.city + item.area + item.address }}</li>
-				<li @click="editAddressMessage(item,newresponse.realname)">
+				<li @click="choiceAddress(item,index)">{{item.province + item.city + item.area + item.address }}</li>
+				<li @click="editAddressMessage(item,newresponse[0].realname)">
 					<img src="../../static/editAddress.png" alt="">
 				</li>
 			</ul>
@@ -20,29 +31,70 @@
 
 <script>
 	import { mapState, mapActions, mapGetters , mapMutations } from 'vuex'
+	import { setToken, getToken, removeToken } from '../../utiles/auth.js'
+	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
+	import { mixStatus } from '../../store/modules/mix.js'
 	export default {
+		mixins:[mixStatus],
+		components: {
+			uniNavBar
+		},
 		data() {
 			return {
-				
+				isChoiceAddress:'假'
 			}
 		},
-		mounted() {
-			
+		onLoad(item) {
+			if(item.val == '真'){
+				this.isChoiceAddress = '真'
+			}else{
+				this.isChoiceAddress = '假'
+			}
+		},
+		created() {
+			this.allrefreshtoken()
 		},
 		computed:{
-			...mapState('user',['addresses','newresponse'])
+			...mapState('user',['addresses','newresponse']),
+			...mapGetters('shopcar',['isorcurrentindex'])
 		},
 		methods:{
+			...mapActions('user',['info1']),
+			...mapMutations('shopcar',['deterIndex']),
 			editAddressMessage(item,realname){
-				item.realname = realname
-				uni.navigateTo({
-					url:'./editAddress?val='+JSON.stringify(item)
-				})
+				if(item.customerId!==undefined){
+					item.realname = realname
+					uni.navigateTo({
+						url:'./editAddress?val='+JSON.stringify(item)
+					})
+				}
+			},
+			// 选地址跳回订单
+			choiceAddress(item,index){
+				this.deterIndex(index)
+				item.name = this.newresponse[0].realname
+				item.telephone = this.newresponse[0].telephone
+				if(this.isChoiceAddress){
+					uni.navigateTo({
+						url:'../order/order?val=' + JSON.stringify(item)
+					})
+				}
 			},
 			toAddAddress(){
 				uni.navigateTo({
 					url:'./editAddress?val='+ '新增地址'
 				})
+			},
+			backToAddress(){
+				if(this.isChoiceAddress == '真'){
+					uni.navigateTo({
+						url:'../order/order'
+					})
+				}else{
+					uni.navigateTo({
+						url:'../my/myAccount'
+					})
+				}
 			}
 		}
 	}
@@ -50,13 +102,15 @@
 
 <style lang="scss" scoped>
 	.content{
-		padding: 10px;
+		padding-bottom: 10px;
 	}
 	.my_address>ul{
 		list-style: none;
 		margin: 0;
-		padding: 0;
 		border-bottom: 1px solid #F2F2F2;
+		margin-top: 5px;
+		padding:0 10px 10px 10px;
+		
 	}
 	.my_address>ul::after{
 		content: "";
@@ -68,14 +122,14 @@
 		font-size: 14px;
 		float: left;
 	}
-	.my_address>ul>li:nth-child(1){
+	.my_address>ul>li:nth-child(2){
 		width: 80px;
 		font-weight: 550;
 	}
-	.my_address>ul>li:nth-child(2){
+	.my_address>ul>li:nth-child(3){
 		font-weight: 550;
 	}
-	.my_address>ul>li:nth-child(3){
+	.my_address>ul>li:nth-child(4){
 		font-weight: 550;
 		padding: 0px 4px 0px 4px;
 		background-color: #007AFF;
@@ -83,14 +137,14 @@
 		width: 15px;
 		margin-left: 10px;
 	}
-	.my_address>ul>li:nth-child(4){
+	.my_address>ul>li:nth-child(5){
 		clear: both;
 	}
-	.my_address>ul>li:nth-child(5){
+	.my_address>ul>li:nth-child(6){
 		float: left;
 		margin-top: 6px;
 	}
-	.my_address>ul>li:nth-child(6){
+	.my_address>ul>li:nth-child(7){
 		float: right;
 		margin-top: 6px;
 	}
@@ -100,5 +154,14 @@
 		bottom: 10px;
 		left: 50%;
 		margin-left: -100px;
+	}
+	.isIndex{
+		width: 20px; 
+		height: 20px; 
+		background-color: red; 
+		color: #FFFFFF; 
+		border-radius: 50%;
+		text-align: center;
+		margin-right: 10px;
 	}
 </style>

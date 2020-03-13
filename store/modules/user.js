@@ -8,7 +8,6 @@ export default {
 		 info:{},
 		 // 用户地址
 		 addresses:[],
-		 userTotaladdress:[],
 		 newresponse:[]
 	},
 	getters:{
@@ -60,15 +59,14 @@ export default {
 		// 根据用户id用户所有信息
 		async customerFindAll({commit,dispatch},id){
 			let response = await get(Customerapi.CustomerFind.api)
-			let newresponse;
-			response.data.forEach((item)=>{
-				newresponse = item
+			let newresponse = response.data.filter((item)=>{
+				return item.id == id
 			})
 			commit("refreshCustomerAllMes", newresponse)
 		},
 		// 保存或更新地址
-		async SaveOrUpdateAddress({commit,dispatch},address,id){
-			let response = await post_array(UserAddressapi.UsersaveOrUpdate.api, address,id)
+		async SaveOrUpdateAddress({commit,dispatch},address){
+			let response = await post_array(UserAddressapi.UsersaveOrUpdate.api,address)
 			commit("refreshAddress",response.data)
 			return response
 		},
