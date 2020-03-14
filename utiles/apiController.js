@@ -20,11 +20,17 @@ const UserAddressapi = {
 const Customerapi = {
 	CustomerFind:{api:baseURL + '/customer/findAll',methods:'GET'},
 }
+const Orderapi = {
+	OrderSave:{api:baseURL + '/order/save',methods:'POST'},
+	OrderConfirm:{api:baseURL + '/order/takeOrder?orderId=',methods:'GET'},
+	OrderFindAll:{api:baseURL + '/order/findAll',methods:'GET'}
+}
 export {
 	Categoryapi,
 	Productapi,
 	Userapi,
 	UserAddressapi,
-	Customerapi
+	Customerapi,
+	Orderapi
 	
 }

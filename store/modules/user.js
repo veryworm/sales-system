@@ -8,7 +8,9 @@ export default {
 		 info:{},
 		 // 用户地址
 		 addresses:[],
-		 newresponse:[]
+		 // 查出当前用户的所有地址
+		 newresponse:[],
+		 selectAddressId:''
 	},
 	getters:{
 		
@@ -27,6 +29,10 @@ export default {
 		// 返回顾客的所有信息
 		refreshCustomerAllMes(state,newresponse){
 			state.newresponse = newresponse
+		},
+		refreshSelectAddressId(state,selectAddressId){
+			state.selectAddressId = selectAddressId
+			console.log(state.selectAddressId,'id')
 		}
 	},
 	actions:{

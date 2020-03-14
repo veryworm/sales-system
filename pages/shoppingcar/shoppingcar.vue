@@ -19,7 +19,7 @@
 			</view> 
 			<!-- 选择商品 -->
 			<view class="uni-list">
-				<view class="choice_goods">
+				<view @click="lop" class="choice_goods">
 					选取您喜欢的商品哦
 				</view>
 				<checkbox-group @change="checkboxChange">
@@ -62,6 +62,11 @@
 		},
 		methods: {
 			...mapMutations('shopcar',['TobuyShop','selectGoodsTotal']),
+			lop(){
+				uni.navigateTo({
+					url:'../order/orderSuccess'
+				})
+			},
 			checkboxChange(e){
 				let arr = Array.from(this.orderLines.values())
 				this.selectData = e.detail.value

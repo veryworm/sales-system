@@ -80,10 +80,6 @@
 		computed:{
 			...mapGetters ('shopcar',['total'])
 		},
-		mounted() {
-		},
-		created() {
-		},
 		methods: {
 			...mapMutations('shopcar',['addShopCar']),
 			// 加入购物车

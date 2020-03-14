@@ -1,6 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path" : "pages/order/orderSuccess",
+			"style" : {
+				"navigationStyle":"custom"
+			}
+		},
+		{
 			"path" : "pages/login/login",
 			"style" : {
 				"navigationStyle":"custom",
@@ -85,8 +91,8 @@
 				"navigationStyle":"custom",
 				"navigationBarTitleText": "查询订单"
 			}
-		}
-        ,{
+		},
+		{
             "path" : "pages/address/address",
             "style" : {
 				"navigationBarTitleText":"收货地址",

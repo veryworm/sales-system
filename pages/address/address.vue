@@ -61,6 +61,7 @@
 		methods:{
 			...mapActions('user',['info1']),
 			...mapMutations('shopcar',['deterIndex']),
+			...mapMutations('user',['refreshSelectAddressId']),
 			editAddressMessage(item,realname){
 				if(item.customerId!==undefined){
 					item.realname = realname
@@ -72,6 +73,7 @@
 			// 选地址跳回订单
 			choiceAddress(item,index){
 				this.deterIndex(index)
+				this.refreshSelectAddressId(item.id)
 				item.name = this.newresponse[0].realname
 				item.telephone = this.newresponse[0].telephone
 				if(this.isChoiceAddress){

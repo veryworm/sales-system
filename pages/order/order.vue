@@ -40,10 +40,9 @@
 					</li>
 					<li>
 						<text style="color: red;">￥{{item.price}}</text>
+						<text style="text-align: right; float: right; font-size: 12px; color: #000000;">小计:{{item.price * item.number}}</text>
 					</li>
-					<li>
-						<!-- <text>总价格:{{price.price}}</text> -->
-					</li>
+					
 					<li>
 						<text>共{{item.number}}件</text>
 					</li>
@@ -55,7 +54,7 @@
 				<text style="font-size: 16px;">¥</text>{{total3}}
 			</view>
 			<view class="submit_order_button">
-				<button class="mini-btn" type="warn" size="mini">确定订单</button>
+				<button @click="confrimOrder" class="mini-btn" type="warn" size="mini">确定订单</button>
 			</view>
 		</view>
 	</view>
@@ -88,6 +87,7 @@
 			...mapGetters('shopcar',['total3'])
 		},
 		methods:{
+			...mapActions('order',['saveOrder']),
 			ToEditAddress(){
 				uni.navigateTo({
 					url:'../address/address?val='+ '真'
@@ -96,6 +96,18 @@
 			backtopage(){
 				uni.switchTab({
 					url:'../shoppingcar/shoppingcar'
+				})
+			},
+			// 下单
+			confrimOrder(){
+				let id = this.defaultAddress[0].id
+				this.saveOrder(id)
+				.then((res)=>{
+					setTimeout(()=>{
+						uni.navigateTo({
+							url:'orderSuccess'
+						})
+					},1200)
 				})
 			}
 		}
@@ -214,18 +226,16 @@
 	}
 	.card_logo>li:nth-child(3){
 		height: 20px;
-		width: 50%;
-		background-color: #FFFFFF;
+		width: 65%;
+		background-color: #ffffff;
 		color: #f3270c;
 		font-size: 16px;
 		font-weight: 400;
+		line-height: 1em;
 	}
 	.card_logo>li:nth-child(4){
-		width: 60%;
-	}
-	.card_logo>li:nth-child(5){
 		text-align: right;
-		width: 60%;
+		width: 65%;
 		margin-bottom: 5px;
 	}
 	.submit_order{

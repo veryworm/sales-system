@@ -71,6 +71,10 @@
 			return {
 				myOrderStatus:[
 					{
+						name:'待收货',
+						imgsrc:'../../static/waiting_pay.png'
+					},
+					{
 						name:'待确认',
 						imgsrc:'../../static/waiting_pay.png'
 					},
@@ -147,13 +151,13 @@
 	.my_order_total{
 		margin-top: 10px; 
 		background-color: #FFFFFF;
-		padding: 10px;
+		padding: 5px 0 5px 0;
 		border-radius: 10px;
 	}
 	.my_order_total>ul{
 		list-style: none;
 		margin: 0;
-		padding: 0;
+		padding: 0 0 10px 10px;
 	}
 	.my_order_total>ul::after{
 		content: "";
@@ -164,7 +168,6 @@
 		float: left;
 		width: 18%;
 		font-size: 12px;
-		margin-left: 20px;
 		text-align: center;
 		line-height: 1.5em;
 	}
