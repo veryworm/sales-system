@@ -106,6 +106,13 @@
 				"navigationStyle":"custom"
 			}
 		}
+        ,{
+            "path" : "pages/order/ordercomment/ordercomment",
+            "style" : {
+				"navigationBarTitleText":"评价",
+				"navigationStyle":"custom"
+			}
+        }
     ],
 	"tabBar": {
 	    "color": "#7A7E83",

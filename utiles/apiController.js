@@ -20,10 +20,15 @@ const UserAddressapi = {
 const Customerapi = {
 	CustomerFind:{api:baseURL + '/customer/findAll',methods:'GET'},
 }
+const Commentapi = {
+	CommentFind:{api:'/comment/findAll',methods:'GET'},
+}
 const Orderapi = {
-	OrderSave:{api:baseURL + '/order/save',methods:'POST'},
-	OrderConfirm:{api:baseURL + '/order/takeOrder?orderId=',methods:'GET'},
-	OrderFindAll:{api:baseURL + '/order/findAll',methods:'GET'}
+	OrderSave:{api:'/order/save',methods:'POST'},
+	OrderConfirm:{api:'/order/confirmOrder?orderId=',methods:'GET'},
+	OrderFindAll:{api:baseURL + '/order/findAll',methods:'GET'},
+	OrderFindById:{api:'/order/getOrderLinesByOrderId?orderId='},
+	OrderDeleteById:{api:'/order/deleteById?id='}
 }
 export {
 	Categoryapi,
@@ -31,6 +36,7 @@ export {
 	Userapi,
 	UserAddressapi,
 	Customerapi,
-	Orderapi
+	Orderapi,
+	Commentapi
 	
 }

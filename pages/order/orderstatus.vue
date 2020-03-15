@@ -17,16 +17,16 @@
 				 </uni-segmented-control>
 			</view>
 		<view class="order_status_sort">
-			<view v-if="current==0||current ==1 || current ==2 || current ==3 || current ==4" class="waiting_confirm">
-			 	<view v-for="item in currentCustomerOrder && current == 4? currentAllOrder : currentCustomerOrder" :key="item.id" class="total_order">
+			<view v-if="current==0||current ==1 || current ==2 || current ==4" class="waiting_confirm">
+			 	<view v-for="item in currentCustomerOrder" :key="item.id" class="total_order">
 			 		<view class="order_one_header">
-						<view v-if="item.status !== '已完成' && item.status !== '待服务'" class="order_detail">
+						<view v-if="item.status !== '已完成' && item.status !== '待服务' && item.status !== '待评价'" class="order_detail">
 							<ul>
 								<li>
 									<text>正在出库</text>
 								</li>
 								<li>
-									<img style="width: 14px; height: 14px; margin-right: 6px;" src="../../static/frieghtcar.png" alt="">
+									<img  style="width: 14px; height: 14px; margin-right: 6px;" src="../../static/frieghtcar.png" alt="">
 									您的订单已进入第三方卖家车库，准备出库 </br>
 									<text style="color: #808080; font-size: 13px;">
 										{{item.orderTime | datefmt}}
@@ -36,14 +36,14 @@
 						</view>
 						<ul>
 							<li><img src="../../static/goods_logo.png" alt=""></li>
-							<li>名字></li>
-							<li><img src="../../static/trash2.png" alt=""></li>
+							<li></li>
+							<li></li>
 							<li>{{item.status}}</li>
 						</ul>
 					</view>
 					<view class="product_totalMessage">
 						<ul>
-							<li>图</li>
+							<li><img style="width: 90px; height: 70px;" :src="item.photo?item.photo : '../../static/loadfailed.gif'" alt=""></li>
 							<li>{{item.id}}</li>
 							<li>{{item.orderTime | datefmt}}</li>
 							<li>名字</li>
@@ -53,6 +53,52 @@
 					</view>
 			 	</view>
 			 </view>
+			 <!-- 评价栏目 -->
+			 <view v-if="current== 3" class="order_commont">
+				 <view class="comment_total">
+				 	<view class="comment_header">
+				 		<ul>
+				 			<li :style="{ fontWeight:index == commentIndex ? 'bolder' : '' }" @click="iscommentIndex(currentCustomerOrder[0].status=='已完成' ? currentCustomerOrder : [] ,index)" :class="[index==commentIndex ? 'st':'']" v-for=" (myitem,index) in ordercommentItem" :key="myitem">
+								{{myitem}}
+							</li>
+				 		</ul>
+				 	</view>
+					
+					<view style="margin-top: 10px;" v-for="myitem1 in currentCustomerOrder" :key="myitem1.orderTime" v-if="commentIndex==0">
+						<ul class="orderdescription">
+							<li>
+								<img style="width: 80px; height: 80px; border-radius: 10px;" src="../../static/loadfailed.gif" alt="">
+							</li>
+							<li>单号:{{myitem1.id}}</li>
+							<li>
+								<button class="description_style" type="primary" size="mini" @click="description(myitem1)">评价</button>
+							</li>
+						</ul>
+					</view>
+					
+					<view v-for="myitem2 in refreshCommentOfVoidData.length !==0 ? refreshCommentOfVoidData : []" :key="myitem2.orderId"  style="margin-top: 10px;">
+						<ul v-if="commentIndex==1" class="orderdescription1">
+							<li>
+								<img style="width: 60px; height: 60px; border-radius: 10px;" src="../../static/loadfailed.gif" alt="">
+							</li>
+							<li>{{myitem2.orderId}}</li>
+							<li style="font-weight: bolder; font-size: 20px;" @click="lookmore()">...</li>
+							<li>
+								<p style="float: left; line-height: .3em;">评分</p>
+								<uni-rate size="16" active-color="#f40e30" margin="6" color="#9c9c9c" value="2"></uni-rate>
+							</li>
+							 <li><text>{{myitem2.content == undefined ? '您还没有评价商品' : myitem2.content }}</text></li>
+							 <view class="comment_button">
+								<button class="description_style" type="primary" size="mini" @click="savedescription()">追加评价</button>
+							 </view>
+						</ul>
+					</view>
+				 </view>
+			 </view>
+		</view>
+		<view style="text-align: center; margin-top: 20px;">
+			<img style="width: 50px; height: 50px; "  src="../../static/bear.png" alt="">
+			<p style="font-size: 12px; color: #bfbfbf;">没有更多啦~</p>
 		</view>
 	</view>
 </template>
@@ -60,26 +106,30 @@
 <script>
 	import uniSegmentedControl from "@/components/uni-segmented-control/uni-segmented-control.vue"
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
+	import uniRate from "@/components/uni-rate/uni-rate.vue"
 	import { mapState, mapActions, mapGetters , mapMutations } from 'vuex'
 	import { mixStatus } from '../../store/modules/mix.js'
 	export default{	
 		mixins:[mixStatus],
 		components: {
 			uniSegmentedControl,
-			uniNavBar
+			uniNavBar,
+			uniRate 
 		},
 		data(){
 			return{
 				orderstatus:0,
 				items: ['待派单','待确认','已完成','待评价','全部订单'],
-				current: 0
+				current: 0,
+				ordercommentItem:['待评价','已评价'],
+				commentIndex:0
 			}
 		},
 		onLoad(index) {
 			this.orderstatus = index.index
 		},
 		computed:{
-			...mapState('order',['currentCustomerOrder','currentAllOrder'])
+			...mapState('order',['currentCustomerOrder','refreshCommentOfVoidData'])
 		},
 		created() {
 			this.loadIndex()
@@ -87,7 +137,7 @@
 			this.findAllOrder('待派单')
 		},
 		methods:{
-			...mapActions('order',['findAllOrder','confirmOrderes']),
+			...mapActions('order',['findAllOrder','confirmOrderes','findAllComments']),
 			// 让传来的数值变为number，否则传值错误 2.刚加载页面默认让currentIndex为0
 			loadIndex(){
 				let index = Number(this.orderstatus)
@@ -104,6 +154,7 @@
 				if(e.currentIndex == 0){
 					status = '待派单'
 					this.findAllOrder(status)
+					
 				}else if(e.currentIndex == 1){
 					status = '待服务'
 					this.findAllOrder(status)
@@ -111,7 +162,7 @@
 					status = '已完成'
 					this.findAllOrder(status)
 				}else if(e.currentIndex == 3){
-					status = '待评价'
+					status = '已完成'
 					this.findAllOrder(status)
 				}else{
 					this.findAllOrder()
@@ -132,7 +183,7 @@
 			gotGoods(id){
 				this.confirmOrderes(id)
 				.then(()=>{
-					this.findAllOrder('待服务')
+					this.findAllOrder("待服务")
 					uni.showToast({
 						title:'确认成功'
 					})
@@ -140,6 +191,23 @@
 						uni.hideToast()
 					},1300)
 				})
+			},
+			iscommentIndex(myitem,index){
+				this.commentIndex = index
+				if(index==0){
+					this.findAllOrder('已完成')
+				}else{
+					this.findAllComments(myitem)
+				}
+			},
+			description(myitem1){
+				uni.navigateTo({
+					url:'./ordercomment/ordercomment?item='+JSON.stringify(myitem1)
+				})
+			},
+			// 查看评价
+			lookmore(){
+				
 			}
 		}
 	}
@@ -148,7 +216,6 @@
 <style lang="scss" scoped>
 	.content{
 		background-color: #F2F2F2;
-		height:100%;
 		padding-bottom: 10px;
 		overflow:hidden
 	}
@@ -233,7 +300,6 @@
 	}
 	.product_totalMessage>ul>li:nth-child(1){
 		width: 25%;
-		background-color: #007AFF;
 		height: 70px;
 		border-radius: 10px;
 		float: left;
@@ -264,5 +330,80 @@
 		border-radius: 25px;
 		color:#ff5500 ;
 		border: 1px solid #ff5500;
+	}
+	.comment_total{
+		padding: 10px;
+		// line-height: 1.5em;
+	}
+	.order_commont{
+		margin-top: 10px;
+	}
+	.comment_header>ul>li{
+		width: 50%;
+		float: left;
+		text-align: center;
+		font-size: 14px;
+	}
+	.comment_header>ul>li:last-child{
+		width: 50%;
+	}
+	.st::after{
+		content:"___";
+		font-weight: bolder;
+		color: red;
+		display: block;
+		clear: both;
+	}
+	.description_style{
+		border: 1px solid #FF0000;
+		background-color: #FFFFFF;
+		border-radius: 20px;
+		color: #FF0000;
+	}
+	.orderdescription{
+		margin-top: 15px;
+		font-size: 14px;
+	}
+	
+	.orderdescription>li:nth-child(1){
+		float: left;
+		width: 80px;
+		height: 80px;
+		border-radius: 10px;
+	}
+	.orderdescription>li:nth-child(2){
+		margin-left: 90px;
+	}
+	.orderdescription>li:nth-child(3){
+		float: right;
+		padding-top: 30px;
+	}
+	
+	.orderdescription1{
+		font-size: 13px;
+	}
+	.orderdescription1>li:nth-child(1){
+		width: 60px;
+		height: 60px;
+		border-radius: 10px;
+		float: left;
+	}
+	.orderdescription1>li:nth-child(2){
+		color: #969696;
+		float: left;
+		margin-left: 10px;
+	}
+	.orderdescription1>li:nth-child(3){
+		color: #969696;
+		text-align: right;
+	}
+	.orderdescription1>li:nth-child(4){
+		margin-left: 70px;
+		margin: 10px 0 30px 70px;
+	}
+	.orderdescription1>li:nth-child(5){
+	}
+	.comment_button{
+		text-align: right;
 	}
 </style>
