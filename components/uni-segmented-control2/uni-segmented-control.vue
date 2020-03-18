@@ -19,8 +19,8 @@
 			    <view style="padding:30rpx; background-color: #FFFFFF;border-radius: 10px">
 			        <view style="font-weight: bold" class="uni-title">
 						<uni-icons type="location" size="25"></uni-icons>
-						<text style="font-size: 14px;">地址</text>
-						<text style="font-size: 14px; vertical-align: sub; color: red;">修改</text>
+						<text style="font-size: 14px;">{{!drawerAddress.length==0?drawerAddress[0].address:addresses[0].address}}</text>
+						<text @click="toEditAddress" style="font-size: 14px; vertical-align: sub; color: red;">修改</text>
 					</view>
 					<!-- drawer 产品name -->
 					<ul class="ull">
@@ -138,6 +138,12 @@
 			styleType: {
 				type: String,
 				default: 'button'
+			},
+			drawerAddress:{
+				type:Array,
+				default(){
+					return []
+				}
 			}
 		},
 		data() {
@@ -177,14 +183,22 @@
 		},
 		computed:{
 			...mapGetters('product',['productFilter']),
+			...mapState('user',['addresses'])
 		},
 		created() {
 			this.currentIndex = this.current
-		},
-		mounted() {
 			this.searchProducts()
 			this.search()
+			this.allrefreshtoken()
 			this.$store.dispatch('searchProducts')
+			if(this.drawerAddress.length!==0){
+				this.visible = true
+			}
+		},
+		mounted() {
+		},
+		onLoad(val) {
+			// console.log(val.val,'addresshaveback')
 		},
 		methods: {
 			...mapActions('product',['searchProducts']),
@@ -220,6 +234,12 @@
 					)
 					this.filterprimaryproduct = resp1
 				}
+			},
+			// 模态框修改地址
+			toEditAddress(){
+				uni.navigateTo({
+					url:'../../pages/address/address?val='+ '真的'
+				})
 			},
 			// 弹出模态框
 			showDrawer(){

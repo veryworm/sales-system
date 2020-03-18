@@ -22,6 +22,7 @@ const Customerapi = {
 }
 const Commentapi = {
 	CommentFind:{api:'/comment/findAll',methods:'GET'},
+	CommenSaveOrUpdate:{api:'/comment/saveOrUpdate'}
 }
 const Orderapi = {
 	OrderSave:{api:'/order/save',methods:'POST'},

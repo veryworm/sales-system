@@ -47,6 +47,8 @@
 		onLoad(item) {
 			if(item.val == '真'){
 				this.isChoiceAddress = '真'
+			}else if(item.val == '真的'){
+				this.isChoiceAddress = '真的'
 			}else{
 				this.isChoiceAddress = '假'
 			}
@@ -76,9 +78,14 @@
 				this.refreshSelectAddressId(item.id)
 				item.name = this.newresponse[0].realname
 				item.telephone = this.newresponse[0].telephone
-				if(this.isChoiceAddress){
+				if(this.isChoiceAddress== '真'){
 					uni.navigateTo({
 						url:'../order/order?val=' + JSON.stringify(item)
+					})
+				}else if(this.isChoiceAddress == '真的'){
+					// 跳回模态框地址部分
+					uni.navigateTo({
+						url:'../good_all_function/good_all_function?val='+ JSON.stringify(item)
 					})
 				}
 			},
@@ -91,6 +98,10 @@
 				if(this.isChoiceAddress == '真'){
 					uni.navigateTo({
 						url:'../order/order'
+					})
+				}else if(this.isChoiceAddress == '真的'){
+					uni.navigateTo({
+						url:'../good_all_function/good_all_function'
 					})
 				}else{
 					uni.navigateTo({

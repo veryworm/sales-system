@@ -64,7 +64,9 @@
 	import uniIcons from "@/components/uni-icons/uni-icons.vue"
 	import uniSegmentedControl from "@/components/uni-segmented-control1/uni-segmented-control.vue"
 	import {Categoryapi,Productapi} from "@/utiles/apiController.js"
+	import { mixStatus } from '../../store/modules/mix.js'
 	export default {
+		mixins:[mixStatus],
 		components: {
 			uniNavBar,
 			uniIcons,
@@ -96,6 +98,7 @@
 		onLoad() {
 			this.searchCategory()
 			this.searchProducts()
+			this.allrefreshtoken()
 		}, 
 		methods: {
 			// 加载分类

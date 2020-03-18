@@ -10,7 +10,7 @@
 			<view class="card_content">
 				<ul class="card_logo">
 					<li v-for="item in products" :key="item.id">
-						<img style="width: 150px; height: 180px;" :src="item.photo" alt="">
+						<img style="width: 180px; height: 180px;" :src="item.photo" alt="">
 						<view class="desc">
 							{{item.description}}
 						</view>
@@ -52,7 +52,6 @@
 	/* 卡片 */
 	.body_content{ 
 		margin-left: 4%;
-		height: 100%;
 		width: 92%;
 		background-color: #f6f6f6;
 		border-radius: 10px;
@@ -69,7 +68,6 @@
 		border-radius: 10px;
 		background-color: #FFFFFF;
 		font-size: 12px;
-		margin-left: 10px;
 	}
 	.card_logo{
 		list-style: none;
@@ -78,13 +76,13 @@
 		color: #0a1019;
 		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 		font-weight: 500;
-		width: 100%;
 	}
 	.card_logo>li{
 		float: left;
-		width: 150px;
+		width: 178px;
 		background-color: #FFFFFF;
-		border: 5px solid #f6f6f6 ;
+		border: 3px solid #f6f6f6 ;
+		padding-bottom: 30px;
 	}
 	.desc{
 		padding-top: 5px;

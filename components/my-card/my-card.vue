@@ -79,11 +79,10 @@
 <style>
 	/* 卡片 */
 	.body_content{ 
-		margin-left: 4%;
-		height: 100%;
 		width: 92%;
 		background-color: #FFFFFF;
 		border-radius: 10px;
+		margin:20px 0 10px 15px;
 	}
 	.xiahua{
 		margin-left: 4%;
@@ -110,40 +109,34 @@
 	.card_content{
 		border-radius: 10px;
 		background-color: #FFFFFF;
-		padding: 0 .2rem .5rem .2rem;
+		/* padding: 0 .2rem .5rem .2rem; */
 		font-size: 12px;
 	}
 	.card_logo{
 		list-style: none;
-		margin: 0;
-		padding: 0;
-		width: 100%;
 		color: #0a1019;
 		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 		font-weight: 500;
-		padding-bottom: 15px;
+		/* padding-bottom: 15px; */
+		text-align: center;
+		margin: 0;
+		padding: 0;
+	}
+	ul::after{
+		content: "";
+		display: block;
+		clear: both;
 	}
 	.card_logo>li{
 		background-color: #FFFFFF;
 		border: 1px solid #FFFFFF;
-		text-align: center;
-		display: inline-block;
-		width:75px;
-		height: 30px;
-		margin: 0 auto;
-		text-align: center;
 		margin-top: 20px;
+		float: left;
+		padding: 10px;
 	}
-	/* .img{
-		margin: 0 auto;
-		margin-top: 20px;
-		text-align: center;
-		
-		border-radius: 50%;
-	} */
 	.img>img{
 		border-radius: 50%;
-		width: 35px;
-		height: 35px;
+		width: 50px;
+		height: 50px;
 	}
 </style>

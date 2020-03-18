@@ -126,7 +126,6 @@
 	      width: 100%;
 	}
 	.my_header{
-		width: 100%;
 		padding: 5px 10px 20px 10px;
 		background-image:url('../../static/obscureimg.jpg');
 		// background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));

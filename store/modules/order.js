@@ -5,7 +5,8 @@ export default {
 	namespaced:true,
 	state:{
 		currentCustomerOrder:[],
-		refreshCommentOfVoidData:[]
+		refreshCommentOfVoidData:[],
+		allContent:[]
 	},
 	getters:{
 		
@@ -16,6 +17,9 @@ export default {
 		},
 		refreshCommentOfVoid(state,refreshCommentOfVoidData){
 			state.refreshCommentOfVoidData = refreshCommentOfVoidData
+		},
+		refreshallContent(state,allContent){
+			state.allContent = allContent
 		}
 	},
 	actions:{
@@ -46,6 +50,9 @@ export default {
 					return item.customerId == rootState.user.info.id && item.status ==  status
 				})
 				commit("refreshCustomerOrder",currentCustomerOrder)
+				if(status == '已完成'){
+					dispatch("findAllComments",currentCustomerOrder)
+				}
 			}
 		},
 		async confirmOrderes({commit},id){
@@ -54,9 +61,10 @@ export default {
 		},
 		// 查评论
 		async findAllComments({commit},myitem){
+			// myitem为已完成订单项的数据
 			let arr = [];
-			let response= await get(Commentapi.CommentFind.api)
-			// 双重遍历,第一次拿到与commentId相同的订单评论的id,第二次把通过的值push到arr里
+			let response = await get(Commentapi.CommentFind.api)
+			// 双重遍历,第一次拿到完成订单orderId与订单评论完成的orderId, 第二次把通过的值push到arr里
 			for(let item3 of myitem){
 				let result = response.data.filter((item)=>{
 					return item.orderId !== null && item.orderId == item3.id
@@ -66,6 +74,22 @@ export default {
 				}
 			}
 			commit("refreshCommentOfVoid",arr)
+			// 把已完成订单和评价完的订单的数据做一次整合
+			let arr1 = []
+			myitem.forEach(i => {
+			    arr.forEach(j => {
+			        if (i.id == j.orderId){
+			            i.iscontent = true
+						arr1.push(myitem)
+			        }
+			    })
+			})
+			commit("refreshallContent",arr1[0])
+		},
+		// 新增修改评论
+		async addOrEditComment({commit},CommentData){
+			let response = await post(Commentapi.CommenSaveOrUpdate.api,CommentData)
+			return response
 		}
 	}
 }

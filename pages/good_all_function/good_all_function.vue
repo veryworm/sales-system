@@ -6,7 +6,7 @@
 					<input @confirm="confirmData" class="search_input" type="text" placeholder="请输入搜索内容">
 			</uniNavBar>
 		</view>
-		  <uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="text" active-color="#d96b4f"></uni-segmented-control>
+		  <uni-segmented-control :drawerAddress="!drawerAddress.length==0?drawerAddress:[]" :current="current" :values="items" @clickItem="onClickItem" style-type="text" active-color="#d96b4f"></uni-segmented-control>
 	</view>
 </template>
 
@@ -25,7 +25,7 @@
 		},
 		data() {
 			return {
-				newoption1:{},
+				drawerAddress:[],
 				items: ['销量','价格','筛选'],
 				current: 0,
 				uniqueval:'goods',
@@ -83,11 +83,10 @@
 			}
 		},
 		onLoad(option) {
-			if(option){
-				let newoption = JSON.parse(option.item)
-				this.newoption1 = newoption
-				// let newoption2 = {sort:'红双喜'}
-				// this.newoption1 =  Object.assign(this.newoption1,newoption2)
+			if(option.val!==undefined){
+				this.drawerAddress = [JSON.parse(option.val)]
+			}else{
+				return []
 			}
 		}
 	}

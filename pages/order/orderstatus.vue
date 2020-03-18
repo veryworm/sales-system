@@ -63,19 +63,18 @@
 							</li>
 				 		</ul>
 				 	</view>
-					
-					<view style="margin-top: 10px;" v-for="myitem1 in currentCustomerOrder" :key="myitem1.orderTime" v-if="commentIndex==0">
+					<!-- 待评价里面的全部评价和已评价 -->
+					<view style="margin-top: 10px;" v-for="(myitem1,index) in allContent" :key="myitem1.orderTime" v-if="commentIndex==0">
 						<ul class="orderdescription">
 							<li>
-								<img style="width: 80px; height: 80px; border-radius: 10px;" src="../../static/loadfailed.gif" alt="">
+								<img style="width: 80px; height: 80px; border-radius: 10px;" :src="myitem1.photo==null ? '../../static/loadfailed.gif': myitem1.photo" alt="">
 							</li>
 							<li>单号:{{myitem1.id}}</li>
 							<li>
-								<button class="description_style" type="primary" size="mini" @click="description(myitem1)">评价</button>
+								<button :disabled="myitem1.iscontent == true?true:false" :class="[myitem1.iscontent==true?'description_style1':'description_style']"  size="mini" @click="description(myitem1)">{{myitem1.iscontent==true?'已评价':'去评价'}}</button>
 							</li>
 						</ul>
 					</view>
-					
 					<view v-for="myitem2 in refreshCommentOfVoidData.length !==0 ? refreshCommentOfVoidData : []" :key="myitem2.orderId"  style="margin-top: 10px;">
 						<ul v-if="commentIndex==1" class="orderdescription1">
 							<li>
@@ -89,7 +88,7 @@
 							</li>
 							 <li><text>{{myitem2.content == undefined ? '您还没有评价商品' : myitem2.content }}</text></li>
 							 <view class="comment_button">
-								<button class="description_style" type="primary" size="mini" @click="savedescription()">追加评价</button>
+								<button class="description_style" type="primary" size="mini" @click="savedescription(myitem2)">追加评价</button>
 							 </view>
 						</ul>
 					</view>
@@ -121,7 +120,7 @@
 				orderstatus:0,
 				items: ['待派单','待确认','已完成','待评价','全部订单'],
 				current: 0,
-				ordercommentItem:['待评价','已评价'],
+				ordercommentItem:['全部评价','已评价'],
 				commentIndex:0
 			}
 		},
@@ -129,7 +128,7 @@
 			this.orderstatus = index.index
 		},
 		computed:{
-			...mapState('order',['currentCustomerOrder','refreshCommentOfVoidData'])
+			...mapState('order',['currentCustomerOrder','refreshCommentOfVoidData','allContent'])
 		},
 		created() {
 			this.loadIndex()
@@ -138,6 +137,7 @@
 		},
 		methods:{
 			...mapActions('order',['findAllOrder','confirmOrderes','findAllComments']),
+			...mapMutations('order',['compareNotOrYesContent']),
 			// 让传来的数值变为number，否则传值错误 2.刚加载页面默认让currentIndex为0
 			loadIndex(){
 				let index = Number(this.orderstatus)
@@ -195,8 +195,9 @@
 			iscommentIndex(myitem,index){
 				this.commentIndex = index
 				if(index==0){
-					this.findAllOrder('已完成')
+					this.findAllComments(myitem)
 				}else{
+					// 这里把已完成的订单项传过去
 					this.findAllComments(myitem)
 				}
 			},
@@ -208,6 +209,11 @@
 			// 查看评价
 			lookmore(){
 				
+			},
+			savedescription(myitem2){
+				uni.navigateTo({
+					url:'./ordercomment/ordercomment?item='+JSON.stringify(myitem2)
+				})
 			}
 		}
 	}
@@ -359,6 +365,12 @@
 		background-color: #FFFFFF;
 		border-radius: 20px;
 		color: #FF0000;
+	}
+	.description_style1{
+		border: 1px solid #c2c2c2;
+		color: #FFFFFF;
+		background-color: #FFFFFF;
+		border-radius: 20px;
 	}
 	.orderdescription{
 		margin-top: 15px;
