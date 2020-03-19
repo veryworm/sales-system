@@ -78,7 +78,8 @@
 			this.productvalue = [JSON.parse(value.val)]
 		},
 		computed:{
-			...mapGetters ('shopcar',['total'])
+			...mapGetters ('shopcar',['total']),
+			...mapState('user',['info'])
 		},
 		methods: {
 			...mapMutations('shopcar',['addShopCar']),
@@ -94,23 +95,33 @@
 				this.productvalue[0].number = val
 			},
 			submitSendmixData(){
-				let newarr = Object.assign(...this.productvalue)
-				let orderLine = {
-					productId:newarr.id,
-					productName:newarr.name,
-					price:newarr.price,
-					number:newarr.number,
-					photo:newarr.photo,
-					checkone:newarr.checkone
+				if(this.info.id!==undefined){
+					let newarr = Object.assign(...this.productvalue)
+					let orderLine = {
+						productId:newarr.id,
+						productName:newarr.name,
+						price:newarr.price,
+						number:newarr.number,
+						photo:newarr.photo,
+						checkone:newarr.checkone
+					}
+					this.addShopCar(orderLine)
+					uni.showToast({
+					    title: '添加成功',
+					    duration: 2000
+					});
+					setTimeout(()=>{
+						uni.hideToast()
+					},1500)
+				}else{
+					uni.showToast({
+						title:"您没有登录，请登录",
+						icon:"none"
+					})
+					setTimeout(()=>{
+						uni.hideToast()
+					},1200)
 				}
-				this.addShopCar(orderLine)
-				uni.showToast({
-				    title: '添加成功',
-				    duration: 2000
-				});
-				setTimeout(()=>{
-					uni.hideToast()
-				},1500)
 			}
 		}
 	}

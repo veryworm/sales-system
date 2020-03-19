@@ -124,8 +124,10 @@
 				commentIndex:0
 			}
 		},
-		onLoad(index) {
-			this.orderstatus = index.index
+		onLoad(val) {
+			let newval = JSON.parse(val.item)
+			this.orderstatus = newval.index
+			this.findAllOrder(newval.name)
 		},
 		computed:{
 			...mapState('order',['currentCustomerOrder','refreshCommentOfVoidData','allContent'])
@@ -133,7 +135,6 @@
 		created() {
 			this.loadIndex()
 			this.allrefreshtoken()
-			this.findAllOrder('待派单')
 		},
 		methods:{
 			...mapActions('order',['findAllOrder','confirmOrderes','findAllComments']),

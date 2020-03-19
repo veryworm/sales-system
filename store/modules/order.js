@@ -6,7 +6,8 @@ export default {
 	state:{
 		currentCustomerOrder:[],
 		refreshCommentOfVoidData:[],
-		allContent:[]
+		allContent:[],
+		ordersort1:[]
 	},
 	getters:{
 		
@@ -20,6 +21,65 @@ export default {
 		},
 		refreshallContent(state,allContent){
 			state.allContent = allContent
+		},
+		refreshOrderSort(state,currentAllOrder){
+			if(currentAllOrder.length!==0){
+				let ordersort1 = [
+					// length要为一个字符串类型,否则length会未定义
+					{
+						name:'待派单',
+						imgsrc:'../../static/waiting_pay.png',
+						length:""
+					},
+					{
+						name:'待确认',
+						imgsrc:'../../static/waiting_pay.png',
+						length:""
+					},
+					{
+						name:'已完成',
+						imgsrc:'../../static/have_finished.png',
+						length:""
+					},
+					{ 
+						name:'待评价',
+						imgsrc:'../../static/waiting_describe.png',
+						length:""
+					},
+					{
+						name:'全部订单',
+						imgsrc:'../../static/all_order.png',
+						length:""
+					}
+				]
+				// 待派单
+				let watingListLength = currentAllOrder.filter((item)=>{
+					return item.status == '待派单'
+				})
+				ordersort1[0].length = watingListLength.length
+				
+				// 待确认
+				let watingComfirmLength = currentAllOrder.filter((item)=>{
+					return item.status == '待确认'
+				})
+				ordersort1[1].length = watingComfirmLength.length
+				
+				// 已完成
+				let haveFinishLength = currentAllOrder.filter((item)=>{
+					return item.status == '已完成'
+				}) 
+				ordersort1[2].length = haveFinishLength.length
+				
+				// 未评价
+				let noCommentLength = state.allContent.filter((item)=>{
+					return item.iscontent !== true
+				}) 
+				ordersort1[3].length = noCommentLength.length
+				
+				// 全部
+				ordersort1[4].length = state.currentCustomerOrder.length
+				state.ordersort1 = ordersort1
+			}
 		}
 	},
 	actions:{
@@ -44,6 +104,14 @@ export default {
 					return item.customerId == rootState.user.info.id
 				})
 				commit("refreshCustomerOrder",currentAllOrder)
+				// commit("refreshOrderSort",currentAllOrder)
+				// 未评价订单数量
+				let notCommentNumber = response.data.filter((item)=>{
+					return item.customerId == rootState.user.info.id && item.status ==  "已完成"
+				})
+				
+				await dispatch("findAllComments",notCommentNumber)
+				commit("refreshOrderSort",currentAllOrder)
 			}else{
 				// 过滤出与当前顾客订单状态相符的订单
 				let currentCustomerOrder = response.data.filter((item)=>{

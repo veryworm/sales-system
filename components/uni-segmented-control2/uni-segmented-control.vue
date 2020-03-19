@@ -19,7 +19,8 @@
 			    <view style="padding:30rpx; background-color: #FFFFFF;border-radius: 10px">
 			        <view style="font-weight: bold" class="uni-title">
 						<uni-icons type="location" size="25"></uni-icons>
-						<text style="font-size: 14px;">{{!drawerAddress.length==0?drawerAddress[0].address:addresses[0].address}}</text>
+						<text v-if="addresses.address!==undefined" style="font-size: 14px;">{{!drawerAddress.length==0?drawerAddress[0].address:addresses[0].address}}</text>
+						<text v-else>地址</text>
 						<text @click="toEditAddress" style="font-size: 14px; vertical-align: sub; color: red;">修改</text>
 					</view>
 					<!-- drawer 产品name -->

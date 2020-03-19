@@ -21,9 +21,11 @@
 		</view>
 		<view class="my_order_total">
 			<ul>
-				<li @click="toOrderStatus(index)" v-for="(item,index) in myOrderStatus" :key="item.name">
-					<view style="position: relative; left: 80%;"><uni-badge text="3" type="error" :inverted="false"></uni-badge></view>
-					<img style="width:20px; height: 20px;" :src="item.imgsrc" alt=""> <br>
+				<li @click="toOrderStatus(item,index)" v-for="(item,index) in ordersort1" :key="item.name">
+					<view style="position: relative; left: 80%;">
+						<uni-badge :text="item.length" type="error" :inverted="false"></uni-badge>
+					</view>
+					<img style="width:20px; height: 20px;" :class="item.length=='0'?'onePadding':''" :src="item.imgsrc" alt=""> <br>
 					{{item.name}}
 				</li>
 			</ul>
@@ -63,42 +65,26 @@
 		},
 		created() {
 			this.allrefreshtoken()
+			// this.manyOrder()
+			this.findAllOrder()
 		},
 		computed:{
-			...mapState("user",["info"])
+			...mapState("user",["info"]),
+			...mapState('order',['currentCustomerOrder','refreshCommentOfVoidData','allContent','ordersort1'])
 		},
 		data() {
 			return {
-				myOrderStatus:[
-					{
-						name:'待收货',
-						imgsrc:'../../static/waiting_pay.png'
-					},
-					{
-						name:'待确认',
-						imgsrc:'../../static/waiting_pay.png'
-					},
-					{
-						name:'已完成',
-						imgsrc:'../../static/have_finished.png'
-					},
-					{ 
-						name:'待评价',
-						imgsrc:'../../static/waiting_describe.png'
-					},
-					{
-						name:'全部订单',
-						imgsrc:'../../static/all_order.png'
-					}
-				]
+			
 			}
 		},
 		methods:{
 			...mapActions('user',['info1']),
+			...mapActions('order',['findAllOrder','findAllComments']),
 			// 跳转订单状态页面
-			toOrderStatus(index){
+			toOrderStatus(item,index){
+				item.index = index
 				uni.navigateTo({
-					url:'../order/orderstatus?index='+index
+					url:'../order/orderstatus?item='+JSON.stringify(item)
 				})
 			},
 			setting(){
@@ -111,6 +97,29 @@
 				uni.navigateTo({
 					url:'../login/login'
 				})
+			},
+			manyOrder(){
+				let watingListLength = this.currentCustomerOrder.filter((item)=>{
+					return item.status == '待派单'
+				})
+				this.myOrderStatus[0].length = watingListLength.length
+				
+				let watingComfirmLength = this.currentCustomerOrder.filter((item)=>{
+					return item.status == '待确认'
+				})
+				this.myOrderStatus[1].length = watingComfirmLength.length
+				console.log(this.myOrderStatus[1].length)
+				let haveFinishLength = this.currentCustomerOrder.filter((item)=>{
+					return item.status == '已完成'
+				}) 
+				this.myOrderStatus[2].length = haveFinishLength.length
+				// let watingCommentLength = this.cur rentCustomerOrder.filter((item)=>{
+				// 	return item.status == '待派单'
+				// })
+				// let AllOrderLength = this.currentCustomerOrder.filter((item)=>{
+				// 	return item
+				// })
+				
 			}
 		}
 	}
@@ -175,6 +184,9 @@
 		background-color: #FFFFFF;
 		padding: 10px;
 		border-radius: 10px;
+	}
+	.onePadding{
+		padding-top: 20px;
 	}
 </style>
 
