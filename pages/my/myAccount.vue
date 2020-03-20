@@ -4,7 +4,7 @@
 			  <!-- 这里是状态栏 -->
 		</view>
 		<view> 
-			<uni-nav-bar background-color="#64d9d6" color="#ffffff" leftIcon="back"  @clickLeft="backToAddress" title="账户设置" ></uni-nav-bar>
+			<uni-nav-bar background-color="#79a7d9" color="#ffffff" leftIcon="back"  @clickLeft="backToAddress" title="账户设置" ></uni-nav-bar>
 		</view>
 		<view class="my_account_header">
 			<ul>

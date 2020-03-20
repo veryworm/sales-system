@@ -58,7 +58,7 @@
 				 <view class="comment_total">
 				 	<view class="comment_header">
 				 		<ul>
-				 			<li :style="{ fontWeight:index == commentIndex ? 'bolder' : '' }" @click="iscommentIndex(currentCustomerOrder[0].status=='已完成' ? currentCustomerOrder : [] ,index)" :class="[index==commentIndex ? 'st':'']" v-for=" (myitem,index) in ordercommentItem" :key="myitem">
+				 			<li :style="{ fontWeight:index == commentIndex ? 'bolder' : '' }" @click="iscommentIndex(currentCustomerOrder[0].status=='已完成' ? currentCustomerOrder : currentCustomerOrder ,index)" :class="[index==commentIndex ? 'st':'']" v-for=" (myitem,index) in ordercommentItem" :key="myitem">
 								{{myitem}}
 							</li>
 				 		</ul>
@@ -125,9 +125,11 @@
 			}
 		},
 		onLoad(val) {
-			let newval = JSON.parse(val.item)
-			this.orderstatus = newval.index
-			this.findAllOrder(newval.name)
+			if(val.item!==undefined && val.item!==null &&val.item!==""){
+				let newval = JSON.parse(val.item)
+				this.orderstatus = newval.index
+				this.findAllOrder(newval.name)
+			}
 		},
 		computed:{
 			...mapState('order',['currentCustomerOrder','refreshCommentOfVoidData','allContent'])
@@ -135,6 +137,7 @@
 		created() {
 			this.loadIndex()
 			this.allrefreshtoken()
+			this.findAllOrder('待派单')
 		},
 		methods:{
 			...mapActions('order',['findAllOrder','confirmOrderes','findAllComments']),
@@ -147,6 +150,7 @@
 					this.current = 0
 				}
 			},
+			// 点击订单每一项加载数据
 			onClickItem(e) {
 				let status;
 				if (this.current !== e.currentIndex) {
@@ -169,6 +173,7 @@
 					this.findAllOrder()
 				}
 			},
+			// 返回
 			backbeforepage(){
 				uni.switchTab({
 					url:'../my/my'
@@ -193,6 +198,7 @@
 					},1300)
 				})
 			},
+			// 待评价下面的两个节点
 			iscommentIndex(myitem,index){
 				this.commentIndex = index
 				if(index==0){
@@ -202,20 +208,18 @@
 					this.findAllComments(myitem)
 				}
 			},
+			// 评价
 			description(myitem1){
 				uni.navigateTo({
 					url:'./ordercomment/ordercomment?item='+JSON.stringify(myitem1)
 				})
 			},
-			// 查看评价
-			lookmore(){
-				
-			},
+			// 追评
 			savedescription(myitem2){
 				uni.navigateTo({
 					url:'./ordercomment/ordercomment?item='+JSON.stringify(myitem2)
 				})
-			}
+			},
 		}
 	}
 </script>

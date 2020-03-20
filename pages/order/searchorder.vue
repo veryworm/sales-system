@@ -6,30 +6,33 @@
 		<view> 
 			<uni-nav-bar  @clickLeft="backbeforepage" left-icon="back">
 				<view slot="default">
-					<uni-search-bar :radius="100" @confirm="search"></uni-search-bar>
+					<uni-search-bar :radius="100"  @confirm="searchOrder"></uni-search-bar>
 				</view>
 			</uni-nav-bar>
 		</view>
-		<view class="order_status_sort">
-			 <view class="waiting_confirm">
+		<view v-if="haveOrder1" class="order_status_sort">
+			 <view v-for="item in searchOrderData.length!==0?searchOrderData:[]" :key="item.id" class="waiting_confirm">
 			 	<view class="order_one_header">
 					<ul>
 						<li><img src="../../static/goods_logo.png" alt=""></li>
-						<li>名字></li>
+						<li>{{item.name}}</li>
 						<li><img src="../../static/trash2.png" alt=""></li>
-						<li>状态</li>
+						<li></li>
 					</ul>
 				</view>
 				<view class="product_totalMessage">
 					<ul>
-						<li>图</li>
-						<li>订单编号</li>
-						<li>下单时间</li>
-						<li>名字</li>
-						<li>¥</li>
+						<li><img style="width: 85px; height: 70px; border-radius: 10px;" :src="item.proto" alt=""></li>
+						<li>{{item.orderId}}</li>
+						<li>{{item.nunmber}}</li>
+						<li>{{item.name}}</li>
+						<li>¥{{item.price}}</li>
 					</ul>
 				</view>
 			 </view>
+		</view>
+		<view v-if="haveOrder" class="hideView">
+			<p class="hideView_text">没有此订单号,请重新搜索</p>
 		</view>
 	</view>
 </template>
@@ -37,6 +40,8 @@
 <script>
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	import uniSearchBar from "@/components/uni-search-bar/uni-search-bar.vue"
+	import { Orderapi } from '../../utiles/apiController.js'
+	import { mapState, mapActions, mapGetters , mapMutations } from 'vuex'
 	export default {
 		components: {
 			uniNavBar,
@@ -44,11 +49,31 @@
 		},
 		data(){
 			return {
-				
+				pp:true,
+				pp1:false
+			}
+		},
+		computed:{
+			...mapState('order',['searchOrderData']),
+			haveOrder(){
+				return this.pp
+			},
+			haveOrder1(){
+				return this.pp1
 			}
 		},
 		methods:{
-			search(){
+			...mapActions('order',['searchOrderHandler']),
+			searchOrder(e){
+				this.searchOrderHandler(e.value)
+				.then(()=>{
+					this.pp = false
+					this.pp1 = true
+				})
+				.catch(()=>{
+				    this.pp = true
+					this.pp1 = false
+				})
 			},
 			backbeforepage(){
 				uni.navigateTo({
@@ -119,7 +144,6 @@
 	}
 	.product_totalMessage>ul>li:nth-child(1){
 		width: 25%;
-		background-color: #007AFF;
 		height: 70px;
 		border-radius: 10px;
 		float: left;
@@ -141,5 +165,13 @@
 	.product_totalMessage>ul>li:nth-child(5){
 		float: right;
 		font-size: 17px;
+	}
+	.hideView{
+		width: 100%;
+		height: 99vh;
+		text-align: center;
+	}
+	.hideView_text{
+		font-size: 16px;
 	}
 </style>

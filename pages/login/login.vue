@@ -29,7 +29,7 @@
 					<view class="form_submit">
 						<button form-type="submit" style="border-radius: 25px;" type="warn">登录</button>
 					</view>
-					<view class="user_register">
+					<view @click="registerUser" class="user_register">
 						<text>新用户注册</text>
 					</view>
 				</form>
@@ -77,6 +77,12 @@
 			closeCurrentPage(){
 				uni.switchTab({
 					url:'../my/my'
+				})
+			},
+			// 注册
+			registerUser(){
+				uni.navigateTo({
+					url:'./registerUser'
 				})
 			}
 		}

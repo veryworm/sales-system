@@ -13,7 +13,7 @@ const Userapi = {
 	UserLogout:{api:'/user/logout',methods:'POST'}
 }
 const UserAddressapi = {
-	UserDeleteId:{api:baseURL + '/address/deleteById?id=',methods:'GET'},
+	UserDeleteId:{api:'/address/deleteById?id='},
 	UserfindById:{api:baseURL + '/address/findByCustomerId?id=',methods:'GET'},
 	UsersaveOrUpdate:{api:baseURL + '/address/saveOrUpdate',methods:'POST'}
 }
@@ -25,9 +25,9 @@ const Commentapi = {
 	CommenSaveOrUpdate:{api:'/comment/saveOrUpdate'}
 }
 const Orderapi = {
-	OrderSave:{api:'/order/save',methods:'POST'},
-	OrderConfirm:{api:'/order/confirmOrder?orderId=',methods:'GET'},
-	OrderFindAll:{api:baseURL + '/order/findAll',methods:'GET'},
+	OrderSave:{api:'/order/save'},
+	OrderConfirm:{api:'/order/confirmOrder?orderId='},
+	OrderFindAll:{api:baseURL + '/order/findAll'},
 	OrderFindById:{api:'/order/getOrderLinesByOrderId?orderId='},
 	OrderDeleteById:{api:'/order/deleteById?id='}
 }

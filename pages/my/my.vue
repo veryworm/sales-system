@@ -4,7 +4,7 @@
 			  <!-- 这里是状态栏 -->
 		</view>
 		<view> 
-			<uni-nav-bar background-color="#64d9d6" color="#ffffff"  @clickRight="setting" right-text="设置" title="我的信息" ></uni-nav-bar>
+			<uni-nav-bar background-color="#79a7d9" color="#ffffff"  @clickRight="setting" right-text="设置" title="我的信息" ></uni-nav-bar>
 		</view>
 		<view class="my_header">
 			<view class="my_image">
@@ -21,7 +21,7 @@
 		</view>
 		<view class="my_order_total">
 			<ul>
-				<li @click="toOrderStatus(item,index)" v-for="(item,index) in ordersort1" :key="item.name">
+				<li v-if="info.id!== undefined" @click="toOrderStatus(item,index)" v-for="(item,index) in ordersort1" :key="item.name">
 					<view style="position: relative; left: 80%;">
 						<uni-badge :text="item.length" type="error" :inverted="false"></uni-badge>
 					</view>

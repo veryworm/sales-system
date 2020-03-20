@@ -4,27 +4,32 @@
 			  <!-- 这里是状态栏 -->
 		</view>
 		<view> 
-			<uni-nav-bar background-color="#64d9d6" color="#ffffff" leftIcon="back"  @clickLeft="backToAddress" title="收货地址" ></uni-nav-bar>
+			<uni-nav-bar background-color="#79a7d9" color="#ffffff" leftIcon="back"  @clickLeft="backToAddress" title="收货地址" ></uni-nav-bar>
 		</view>
-		<view class="my_address">
-			<ul v-for="(item,index) in addresses" :key="item.id">
-				<li>
-					<view v-if="index==isorcurrentindex" class="isIndex">
-						√
-					</view>
-				</li>
-				<li>{{newresponse[0].realname}}</li>
-				<li>{{newresponse[0].telephone}}</li>
-				<li>家</li> 
-				<li></li>
-				<li @click="choiceAddress(item,index)">{{item.province + item.city + item.area + item.address }}</li>
-				<li @click="editAddressMessage(item,newresponse[0].realname)">
-					<img src="../../static/editAddress.png" alt="">
-				</li>
-			</ul>
-		</view>
-		<view class="my_addTakeAddress">
-			<button @click="toAddAddress" style="font-size: 14px; border-radius: 25px;" type="warn"><text style="font-weight: 550;">+</text>新增收货地址</button>
+		<view v-if="info.id!== undefined">
+			<view class="my_address">
+				<ul v-for="(item,index) in addresses" :key="item.id">
+					<li>
+						<view v-if="index==isorcurrentindex" class="isIndex">
+							√
+						</view>
+					</li>
+					<li v-if="newresponse[0]!==undefined">{{newresponse[0].realname}}</li>
+					<li v-if="newresponse[0]!==undefined">{{newresponse[0].telephone}}</li>
+					<li>家</li> 
+					<li></li>
+					<li @click="choiceAddress(item,index)">{{item.province + item.city + item.area + item.address }}</li>
+					<li @click="editAddressMessage(item,newresponse[0].realname)">
+						<img src="../../static/editAddress.png" alt="">
+					</li>
+					<li >
+						<!-- <img @click="deleteAddress(item.id)" src="../../static/trash.png" style="width:28px; height: 28px;" alt=""> -->
+					</li>
+				</ul>
+			</view>
+			<view class="my_addTakeAddress">
+				<button @click="toAddAddress" style="font-size: 14px; border-radius: 25px;" type="warn"><text style="font-weight: 550;">+</text>新增收货地址</button>
+			</view>
 		</view>
 	</view>
 </template>
@@ -55,13 +60,18 @@
 		},
 		created() {
 			this.allrefreshtoken()
+			if(this.info.id== undefined){
+				uni.navigateTo({
+					url:"../login/login"
+				})
+			}
 		},
 		computed:{
-			...mapState('user',['addresses','newresponse']),
+			...mapState('user',['addresses','newresponse','info']),
 			...mapGetters('shopcar',['isorcurrentindex'])
 		},
 		methods:{
-			...mapActions('user',['info1']),
+			...mapActions('user',['info1','deleteAddressByUserId']),
 			...mapMutations('shopcar',['deterIndex']),
 			...mapMutations('user',['refreshSelectAddressId']),
 			editAddressMessage(item,realname){
@@ -92,6 +102,16 @@
 			toAddAddress(){
 				uni.navigateTo({
 					url:'./editAddress?val='+ '新增地址'
+				})
+			},
+			// 删除地址
+			deleteAddress(id){
+				this.deleteAddressByUserId(id)
+				.then(()=>{
+					alert('删除成功')
+				})
+				.catch((res)=>{
+					alert(res)
 				})
 			},
 			backToAddress(){
@@ -160,6 +180,10 @@
 	.my_address>ul>li:nth-child(7){
 		float: right;
 		margin-top: 6px;
+	}
+	.my_address>ul>li:nth-child(8){
+		float: right;
+		margin-top: 1px;
 	}
 	.my_addTakeAddress{
 		width: 200px;

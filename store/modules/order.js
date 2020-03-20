@@ -1,13 +1,14 @@
 import _ from 'lodash'
 import { post_array, post_json, post_obj_array, get, post} from '../../http/axios.js'
-import { Orderapi, Commentapi } from '../../utiles/apiController.js'
+import { Orderapi, Commentapi , Productapi } from '../../utiles/apiController.js'
 export default {
 	namespaced:true,
 	state:{
 		currentCustomerOrder:[],
 		refreshCommentOfVoidData:[],
 		allContent:[],
-		ordersort1:[]
+		ordersort1:[],
+		searchOrderData:[]
 	},
 	getters:{
 		
@@ -21,6 +22,10 @@ export default {
 		},
 		refreshallContent(state,allContent){
 			state.allContent = allContent
+		},
+		// 查询订单数据
+		refreshSearchOrder(state,searchOrderData){
+			state.searchOrderData = searchOrderData
 		},
 		refreshOrderSort(state,currentAllOrder){
 			if(currentAllOrder.length!==0){
@@ -158,6 +163,30 @@ export default {
 		async addOrEditComment({commit},CommentData){
 			let response = await post(Commentapi.CommenSaveOrUpdate.api,CommentData)
 			return response
+		},
+		async deleteOrderHandler({commit},id){
+			let response = await get(Orderapi.OrderDeleteById.api+id)
+			return response
+		},
+		// 根据id搜索订单
+		async searchOrderHandler({commit,rootState,dispatch},id){
+			let response = await get(Orderapi.OrderFindById.api+id)
+			dispatch("findProduct",response.data)
+		},
+		async findProduct({commit,dispatch},searchOrderData){
+			let response = await get(Productapi.ProductFindAll.api)
+			let arr1 = []
+			// 因为搜到的数据没有产品的图片和产品的name,这里过滤出来与product的id相同的数据,然后拼接到搜到的数据中
+			searchOrderData.forEach(i => {
+			    response.data.forEach(j => {
+			        if (i.productId == j.id){
+			            i.name = j.name
+						i.proto = j.photo
+						arr1.push(i)
+			        }
+			    })
+			})
+			commit("refreshSearchOrder",arr1)
 		}
 	}
 }

@@ -57,9 +57,9 @@ export default {
 			commit("refreshAddress",response.data)
 		},
 		// 根据用户id删除
-		async deleteAddressByUserId({dispatch},id){
-			let response = await get(UserAddressapi.UserDeleteId.api+id)
-			dispatch('findUserAddressById',id)
+		async deleteAddressByUserId({dispatch,state},id){
+			let response = await get("/address/deleteById?id="+id)
+			dispatch('findUserAddressById',state.info.id)
 			return response
 		},
 		// 根据用户id用户所有信息
