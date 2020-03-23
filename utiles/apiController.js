@@ -19,6 +19,7 @@ const UserAddressapi = {
 }
 const Customerapi = {
 	CustomerFind:{api:baseURL + '/customer/findAll',methods:'GET'},
+	CustomerSave:{api:'/customer/saveOrUpdate'}
 }
 const Commentapi = {
 	CommentFind:{api:'/comment/findAll',methods:'GET'},

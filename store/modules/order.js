@@ -76,10 +76,12 @@ export default {
 				ordersort1[2].length = haveFinishLength.length
 				
 				// 未评价
-				let noCommentLength = state.allContent.filter((item)=>{
-					return item.iscontent !== true
-				}) 
-				ordersort1[3].length = noCommentLength.length
+				if(state.allContent!==undefined){
+					let noCommentLength = state.allContent.filter((item)=>{
+						return item.iscontent !== true
+					}) 
+					ordersort1[3].length = noCommentLength.length
+				}
 				
 				// 全部
 				ordersort1[4].length = state.currentCustomerOrder.length

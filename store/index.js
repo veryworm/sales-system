@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 import user from './modules/user'
 import order from './modules/order'
-// import category from './modules/category'
+import customer from './modules/customer'
 import shopcar from './modules/shopcar'
 import product from './modules/product'
 import {Categoryapi,Productapi} from "@/utiles/apiController.js"
@@ -60,7 +60,7 @@ const store = new Vuex.Store({
    modules: {
     user,
     order,
-    // category,
+    customer,
     product,
 	shopcar
     // shopcar

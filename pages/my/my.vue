@@ -25,7 +25,7 @@
 					<view style="position: relative; left: 80%;">
 						<uni-badge :text="item.length" type="error" :inverted="false"></uni-badge>
 					</view>
-					<img style="width:20px; height: 20px;" :class="item.length=='0'?'onePadding':''" :src="item.imgsrc" alt=""> <br>
+					<img style="width:20px; height: 20px;" :class="item.length==''||item.length=='0'?'onePadding':''" :src="item.imgsrc" alt=""> <br>
 					{{item.name}}
 				</li>
 			</ul>
