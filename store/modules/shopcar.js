@@ -44,7 +44,6 @@ export default {
 		},
 		// 挑选商品的总额
 		selectGoodsTotal(state,price){
-			console.log(price,'sd')
 			state.selectPrice = price
 			state.selectPrice = _.clone(state.selectPrice)
 		},

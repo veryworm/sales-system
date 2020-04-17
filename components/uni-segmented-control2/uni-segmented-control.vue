@@ -199,7 +199,6 @@
 		mounted() {
 		},
 		onLoad(val) {
-			// console.log(val.val,'addresshaveback')
 		},
 		methods: {
 			...mapActions('product',['searchProducts']),

@@ -134,7 +134,6 @@
 			// 打开picker选省市区
 			openAddres() {
 				this.$refs.simpleAddress.open();
-				console.log(this.$refs.simpleAddress,'ss')
 			},
 			// picker选省市区确认按钮
 			onConfirm(e) {
@@ -167,7 +166,7 @@
 						setTimeout(()=>{
 							uni.hideToast()
 							uni.navigateTo({
-								url:'../my/myAccount'
+								url:'./address'
 							})
 						},2000)
 					})
@@ -186,7 +185,7 @@
 						setTimeout(()=>{
 							uni.hideToast()
 							uni.navigateTo({
-								url:'../my/myAccount'
+								url:'./address'
 							})
 						},2000)
 					})

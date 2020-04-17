@@ -20,7 +20,7 @@
 			<view v-if="current==0||current ==1 || current ==2 || current ==4" class="waiting_confirm">
 			 	<view v-for="item in currentCustomerOrder" :key="item.id" class="total_order">
 			 		<view class="order_one_header">
-						<view v-if="item.status !== '已完成' && item.status !== '待服务' && item.status !== '待评价'" class="order_detail">
+						<view v-if="item.status !== '已完成' && item.status !== '待确认' && item.status !== '待评价'" class="order_detail">
 							<ul>
 								<li>
 									<text>正在出库</text>
@@ -48,7 +48,7 @@
 							<li>{{item.orderTime | datefmt}}</li>
 							<li>名字</li>
 							<li>¥{{item.total}}</li>
-							<li><button v-if="item.status=='待服务'" @click="gotGoods(item.id)" class="mini-btn" size="mini">确认收货</button></li>
+							<li><button v-if="item.status=='待确认'" @click="gotGoods(item.id)" class="mini-btn" size="mini">确认收货</button></li>
 						</ul>
 					</view>
 			 	</view>
@@ -64,7 +64,7 @@
 				 		</ul>
 				 	</view>
 					<!-- 待评价里面的全部评价和已评价 -->
-					<view style="margin-top: 10px;" v-for="(myitem1,index) in allContent" :key="myitem1.orderTime" v-if="commentIndex==0">
+					<view style="margin-top: 10px;" v-for="(myitem1,index) in refreshCommentOfVoidData" :key="myitem1.orderTime" v-if="commentIndex==0">
 						<ul class="orderdescription">
 							<li>
 								<img style="width: 80px; height: 80px; border-radius: 10px;" :src="myitem1.photo==null ? '../../static/loadfailed.gif': myitem1.photo" alt="">
@@ -75,12 +75,12 @@
 							</li>
 						</ul>
 					</view>
-					<view v-for="myitem2 in refreshCommentOfVoidData.length !==0 ? refreshCommentOfVoidData : []" :key="myitem2.orderId"  style="margin-top: 10px;">
+					<view v-for="myitem2 in HaveComment.length !==0 ? HaveComment : []" :key="myitem2.orderId"  style="margin-top: 10px;">
 						<ul v-if="commentIndex==1" class="orderdescription1">
 							<li>
 								<img style="width: 60px; height: 60px; border-radius: 10px;" src="../../static/loadfailed.gif" alt="">
 							</li>
-							<li>{{myitem2.orderId}}</li>
+							<li>{{myitem2.id}}</li>
 							<li style="font-weight: bolder; font-size: 20px;" @click="lookmore()">...</li>
 							<li>
 								<p style="float: left; line-height: .3em;">评分</p>
@@ -132,7 +132,7 @@
 			}
 		},
 		computed:{
-			...mapState('order',['currentCustomerOrder','refreshCommentOfVoidData','allContent'])
+			...mapState('order',['currentCustomerOrder','refreshCommentOfVoidData','HaveComment'])
 		},
 		created() {
 			this.loadIndex()
@@ -161,7 +161,7 @@
 					this.findAllOrder(status)
 					
 				}else if(e.currentIndex == 1){
-					status = '待服务'
+					status = '待确认'
 					this.findAllOrder(status)
 				}else if(e.currentIndex == 2){
 					status = '已完成'

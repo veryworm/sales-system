@@ -22,7 +22,7 @@ export default {
 	}
   },
   actions: {
-      searchProducts({state,commit,getters }){
+      searchProducts({state,commit }){
       	uni.request({
       	    url: Productapi.ProductFindAll.api, 
       		method: Productapi.ProductFindAll.methods,
@@ -30,10 +30,6 @@ export default {
       	        'Accept': 'application/json'
       	    },
       	    success: (res) => {
-				res.data.data.forEach(item=>{
-					item.number = 0,
-					item.checkone = true
-				})
 				commit('refreshProducts',res.data.data)
 				commit('refreshProductsImg',res.data.data)
       	    },

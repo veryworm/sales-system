@@ -54,7 +54,6 @@
 		},
 		methods:{
 			skipGoodsAllHandler(item,index){
-				console.log(item,'item')
 				// uni.showLoading({
 				//     title: '加载中'
 				// });
@@ -69,7 +68,6 @@
 				// }, 2000);
 			},
 			scroll: function(e) {
-				console.log(e)
 				this.old.scrollTop = e.detail.scrollTop
 			},
 		}

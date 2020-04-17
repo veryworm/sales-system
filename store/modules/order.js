@@ -6,7 +6,7 @@ export default {
 	state:{
 		currentCustomerOrder:[],
 		refreshCommentOfVoidData:[],
-		allContent:[],
+		HaveComment:[],
 		ordersort1:[],
 		searchOrderData:[]
 	},
@@ -20,8 +20,8 @@ export default {
 		refreshCommentOfVoid(state,refreshCommentOfVoidData){
 			state.refreshCommentOfVoidData = refreshCommentOfVoidData
 		},
-		refreshallContent(state,allContent){
-			state.allContent = allContent
+		refreshHaveComment(state,HaveComment){
+			state.HaveComment = HaveComment
 		},
 		// 查询订单数据
 		refreshSearchOrder(state,searchOrderData){
@@ -148,18 +148,20 @@ export default {
 					arr.push(item4)
 				}
 			}
-			commit("refreshCommentOfVoid",arr)
+			commit("refreshCommentOfVoid",myitem)
 			// 把已完成订单和评价完的订单的数据做一次整合
-			let arr1 = []
+			let arr1 = new Map()
 			myitem.forEach(i => {
 			    arr.forEach(j => {
 			        if (i.id == j.orderId){
+						i.commentId = j.id
 			            i.iscontent = true
-						arr1.push(myitem)
+						i.content = j.content
+						arr1.set(i.id,i)
 			        }
 			    })
 			})
-			commit("refreshallContent",arr1[0])
+			commit("refreshHaveComment",Array.from(arr1.values()))
 		},
 		// 新增修改评论
 		async addOrEditComment({commit},CommentData){

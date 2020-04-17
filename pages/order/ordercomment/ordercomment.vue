@@ -71,12 +71,14 @@
 			}
 		},
 		onLoad(val) {
-			let newval = [JSON.parse(val.item)]
-			if(newval[0].content !== undefined){
-				// 如果评价不为空，要追加评价
-				this.orderItem1 = newval
-			}else{
-				this.orderItem = newval
+			if(val.item!==undefined){
+				let newval = [JSON.parse(val.item)]
+				if(newval[0].content !== undefined){
+					// 如果评价不为空，要追加评价
+					this.orderItem1 = newval
+				}else{
+					this.orderItem = newval
+				}
 			}
 		},
 		methods:{
@@ -89,12 +91,12 @@
 			submitComment(){
 				this.CommentForm.commentTime = Date.parse(new Date())
 				if(this.orderItem1.length !==0){
-					this.CommentForm.id = this.orderItem1[0].id
-					this.CommentForm.orderId = this.orderItem1[0].orderId
+					this.CommentForm.id = this.orderItem1[0].commentId
+					this.CommentForm.orderId = this.orderItem1[0].id
 					this.addOrEditComment(this.CommentForm)
 					.then(()=>{
 						uni.showToast({
-							title:'评价成功'
+							title:'追评成功'
 						})
 						setTimeout(()=>{
 							uni.hideToast()

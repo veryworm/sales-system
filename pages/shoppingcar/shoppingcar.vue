@@ -121,7 +121,6 @@
 						url:'../login/login'
 					})
 				}else{
-					console.log(this.info)
 				}
 			},
 			toLoginPage(){
