@@ -50,7 +50,14 @@
 			
 		},
 		watch:{
-			
+			categoryData:{
+				immediate:true,
+				deep:true,
+				handler(val){
+					console.log('22')
+					this.categoryData = val
+				}
+			}
 		},
 		methods:{
 			skipGoodsAllHandler(item,index){

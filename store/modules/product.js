@@ -7,7 +7,7 @@ export default {
   },
   getters:{
     productFilter(state){
-       return state.products.filter(item=>item.status === '100')
+       return state.products.filter(item=>item.status === '100'||item.status === '正常')
     }
   },
   mutations: {

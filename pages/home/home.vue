@@ -14,7 +14,6 @@
 				:current="current"
 				:values="categories"
 				@clickItem="onClickItem"
-				@click= "click1(item)"
 				style-type="text" 
 				active-color="#ffffff"
 			>
@@ -35,23 +34,17 @@
 						</view>
 					</view>
 				</view>
+				
+			</view>
+			<view v-if="current !== categoryData.length" class="ss">
 				<myCard :categoryData="categoryData">
 					<!-- 分类卡片 -->
 				</myCard>
-				<!-- <view style="margin-top: 10px;"> -->
-					<!-- 我的关注 -->
-					<!-- <myAttention></myAttention> -->
-				<!-- </view> -->
-				<view style="margin-top: 10px;">
-					<!-- 所有产品 -->
-					<myGoods :products="products"></myGoods>
-				</view>
 			</view>
-			<view v-if="current == '1'">
-				<!-- 家庭养护:{{categoryData}} -->
-			</view>
-			<view v-if="current == '2'">
-				<!-- 庭微信{{categoryData}} -->
+			
+			<view style="margin-top: 10px;">
+				<!-- 所有产品 -->
+				<myGoods :products="products"></myGoods>
 			</view>
 	</view>
 </template>
@@ -147,6 +140,7 @@
 					},
 					success: (res) => {
 					    this.categoryData= res.data.data
+						console.log(this.categoryData,'cccc')
 					},
 					fail:(res)=>{
 						
